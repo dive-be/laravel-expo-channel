@@ -1,50 +1,32 @@
-# :package_description
+# Expo Notifications Channel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dive-be/:package_name.svg?style=flat-square)](https://packagist.org/packages/dive-be/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dive-be/laravel-expo-channel.svg?style=flat-square)](https://packagist.org/packages/dive-be/laravel-expo-channel)
 
-**Note:** Run `./init.sh` to get started, or manually replace  ```:author_name``` ```:author_username``` ```:author_email``` ```:package_name``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](.github/CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line. You can also run `init.sh` to do this automatically.
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-⚠️ Minor releases of this package may cause breaking changes as it has no stable release yet.
-
-## What problem does this package solve?
-
-Optionally describe why someone would want to use this package.
+[Expo](https://docs.expo.dev/push-notifications/overview/) channel for pushing notifications to your React Native apps.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require dive-be/:package_name
+composer require dive-be/laravel-expo-channel
 ```
 
-You can publish and run the migrations with:
+### Additional Security (optional)
 
-```bash
-php artisan vendor:publish --provider="Dive\Skeleton\SkeletonServiceProvider" --tag="migrations"
-php artisan migrate
-```
+You can require any push notifications to be sent with an additional [Access Token](https://docs.expo.dev/push-notifications/sending-notifications/#additional-security) before Expo delivers them to your users.
 
-You can publish the config file with:
-```bash
-php artisan vendor:publish --provider="Dive\Skeleton\SkeletonServiceProvider" --tag="config"
-```
-
-This is the contents of the published config file:
+If you want to make use of this additional security layer, add the following to your `config/services.php` file:
 
 ```php
-return [
-];
+'expo' => [
+    'access_token' => env('EXPO_ACCESS_TOKEN'),
+],
 ```
 
 ## Usage
 
-```php
-$skeleton = new Dive\Skeleton();
-echo $skeleton->echoPhrase('Hello, Dive!');
-```
+WIP
 
 ## Testing
 
@@ -66,7 +48,7 @@ If you discover any security related issues, please email oss@dive.be instead of
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Muhammed Sari](https://github.com/mabdullahsari)
 - [All Contributors](../../contributors)
 
 ## License
