@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace NotificationChannels\Expo;
 
@@ -32,10 +32,5 @@ final class ExpoResponse
     public function isFailure(): bool
     {
         return ! $this->ok;
-    }
-
-    public function isSuccess(): bool
-    {
-        return $this->ok;
     }
 }

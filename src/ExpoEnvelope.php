@@ -2,12 +2,13 @@
 
 namespace NotificationChannels\Expo;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
 /**
  * @internal
  */
-final class ExpoEnvelope implements Jsonable
+final class ExpoEnvelope implements Arrayable, Jsonable
 {
     private function __construct(
         public readonly array $recipients,
@@ -21,8 +22,17 @@ final class ExpoEnvelope implements Jsonable
         return new self($recipients, $message);
     }
 
+    public function toArray(): array
+    {
+        $envelope = $this->message->toArray();
+
+        $envelope['to'] = array_map(static fn ($recipient) => (string) $recipient, $this->recipients);
+
+        return $envelope;
+    }
+
     public function toJson($options = 0): string
     {
-        return json_encode(get_object_vars($this), $options);
+        return json_encode($this->toArray(), $options);
     }
 }
