@@ -10,27 +10,17 @@ use GuzzleHttp\Psr7\Response;
 final class ExpoResponse
 {
     private function __construct(
-        private bool $ok,
-        private array $errors,
+        public readonly bool $failure,
+        public readonly array $errors,
     ) {}
 
     public static function fromGuzzle(Response $response): self
     {
-        $body = json_decode($response->getBody(), true);
+        $body = json_decode((string) $response->getBody(), true);
 
         return new self(
-            $body['data']['status'] === 'ok' ?? false,
+            $body['data']['status'] !== 'ok' ?? true,
             $body['errors'] ?? [],
         );
-    }
-
-    public function errors(): array
-    {
-        return $this->errors;
-    }
-
-    public function isFailure(): bool
-    {
-        return ! $this->ok;
     }
 }
