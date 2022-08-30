@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Unit;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
@@ -281,7 +281,7 @@ class ExpoMessageTest extends TestCase
     }
 
     /** @test */
-    public function it_is_arrayable()
+    public function it_is_arrayable_and_json_serializable()
     {
         $msg = ExpoMessage::create('Exponent', 'Firebase Cloud Messaging')
             ->badge(3)
@@ -289,9 +289,10 @@ class ExpoMessageTest extends TestCase
             ->ttl(120)
             ->high();
 
-        $data = $msg->toArray();
+        $arrayable = $msg->toArray();
+        $jsonSerializable = $msg->jsonSerialize();
 
-        $this->assertSame([
+        $this->assertSame($data = [
             'title' => 'Exponent',
             'body' => 'Firebase Cloud Messaging',
             'ttl' => 120,
@@ -299,7 +300,9 @@ class ExpoMessageTest extends TestCase
             'sound' => 'default',
             'badge' => 3,
             'mutableContent' => false,
-        ], $data);
+        ], $arrayable);
+
+        $this->assertSame($data, $jsonSerializable);
     }
 }
 
