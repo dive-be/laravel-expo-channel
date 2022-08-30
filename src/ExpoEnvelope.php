@@ -4,7 +4,7 @@ namespace NotificationChannels\Expo;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use InvalidArgumentException;
+use UnexpectedValueException;
 
 /**
  * @internal
@@ -21,7 +21,7 @@ final class ExpoEnvelope implements Arrayable, Jsonable
         public readonly ExpoMessage $message,
     ) {
         if (! count($this->recipients)) {
-            throw new InvalidArgumentException('There must be at least 1 recipient.');
+            throw new UnexpectedValueException('There must be at least 1 recipient.');
         }
     }
 

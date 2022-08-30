@@ -3,8 +3,8 @@
 namespace NotificationChannels\Expo;
 
 use Illuminate\Contracts\Database\Eloquent\Castable;
-use InvalidArgumentException;
 use Stringable;
+use UnexpectedValueException;
 
 final class ExpoPushToken implements Castable, Stringable
 {
@@ -21,20 +21,20 @@ final class ExpoPushToken implements Castable, Stringable
     /**
      * Create a new ExpoPushToken instance.
      *
-     * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
      */
     private function __construct(string $value)
     {
         if (mb_strlen($value) < self::MIN_LENGTH) {
-            throw new InvalidArgumentException("{$value} is not a valid push token.");
+            throw new UnexpectedValueException("{$value} is not a valid push token.");
         }
 
         if (! str_starts_with($value, 'ExponentPushToken[') && ! str_starts_with($value, 'ExpoPushToken[')) {
-            throw new InvalidArgumentException("{$value} is not a valid push token.");
+            throw new UnexpectedValueException("{$value} is not a valid push token.");
         }
 
         if (! str_ends_with($value, ']')) {
-            throw new InvalidArgumentException("{$value} is not a valid push token.");
+            throw new UnexpectedValueException("{$value} is not a valid push token.");
         }
 
         $this->value = $value;

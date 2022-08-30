@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 use JsonSerializable;
 use NotificationChannels\Expo\ExpoMessage;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
+use UnexpectedValueException;
 
 class ExpoMessageTest extends TestCase
 {
@@ -36,7 +36,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_a_badge_below_zero()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The badge must be greater than or equal to 0.');
 
         ExpoMessage::create()->badge(-1337);
@@ -55,7 +55,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_empty_body()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The body must not be empty.');
 
         ExpoMessage::create()->body('');
@@ -74,7 +74,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_empty_category_id()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The categoryId must not be empty.');
 
         ExpoMessage::create()->categoryId('');
@@ -93,7 +93,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_empty_channel_id()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The channelId must not be empty.');
 
         ExpoMessage::create()->channelId('');
@@ -147,7 +147,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_expiration_in_the_past()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The expiration time must be in the future.');
 
         ExpoMessage::create()->expiration(time() - 60);
@@ -212,7 +212,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_invalid_priority()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The priority must be default, normal or high.');
 
         ExpoMessage::create()->priority('extreme');
@@ -231,7 +231,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_empty_subtitle()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The subtitle must not be empty.');
 
         ExpoMessage::create()->subtitle('');
@@ -250,7 +250,7 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_an_empty_title()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The title must not be empty.');
 
         ExpoMessage::create()->title('');
@@ -269,12 +269,12 @@ class ExpoMessageTest extends TestCase
     /** @test */
     public function it_doesnt_allow_zero_or_a_negative_ttl()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The TTL must be greater than 0.');
 
         ExpoMessage::create()->ttl(0);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The TTL must be greater than 0.');
 
         ExpoMessage::create()->ttl(-60);

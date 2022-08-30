@@ -8,6 +8,7 @@ use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
 use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * @internal
@@ -71,7 +72,7 @@ final class ExpoChannel
         $message = $notification->toExpo($notifiable);
 
         if (! $message instanceof ExpoMessage) {
-            throw new RuntimeException(sprintf('toExpo must return an instance of %s', ExpoMessage::class));
+            throw new UnexpectedValueException(sprintf('toExpo must return an instance of %s', ExpoMessage::class));
         }
 
         return $message;

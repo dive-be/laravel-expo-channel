@@ -3,7 +3,7 @@
 namespace NotificationChannels\Expo;
 
 use Illuminate\Contracts\Validation\InvokableRule;
-use InvalidArgumentException;
+use UnexpectedValueException;
 
 final class ExpoPushTokenRule implements InvokableRule
 {
@@ -14,7 +14,7 @@ final class ExpoPushTokenRule implements InvokableRule
     {
         try {
             ExpoPushToken::fromString($value);
-        } catch (InvalidArgumentException $ex) {
+        } catch (UnexpectedValueException $ex) {
             $fail($ex->getMessage());
         }
     }
