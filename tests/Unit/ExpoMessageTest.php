@@ -306,7 +306,7 @@ final class ExpoMessageTest extends TestCase
     }
 }
 
-class TestArrayable implements Arrayable
+final class TestArrayable implements Arrayable
 {
     public function toArray(): array
     {
@@ -314,7 +314,7 @@ class TestArrayable implements Arrayable
     }
 }
 
-class TestJsonable implements Jsonable
+final class TestJsonable implements Jsonable
 {
     public function toJson($options = 0): string
     {
@@ -322,7 +322,7 @@ class TestJsonable implements Jsonable
     }
 }
 
-class TestJsonSerializable implements JsonSerializable
+final class TestJsonSerializable implements JsonSerializable
 {
     public function jsonSerialize(): array
     {

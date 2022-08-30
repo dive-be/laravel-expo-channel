@@ -46,13 +46,13 @@ final class CastTest extends TestCase
     }
 }
 
-class User extends Model
+final class User extends Model
 {
     protected $casts = ['expo_token' => AsExpoPushToken::class];
     protected $guarded = [];
 }
 
-class Notifiable extends Model
+final class Notifiable extends Model
 {
     protected $casts = ['expo_token' => ExpoPushToken::class];
     protected $guarded = [];
