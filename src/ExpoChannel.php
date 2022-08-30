@@ -24,8 +24,8 @@ final class ExpoChannel
      * Create a new channel instance.
      */
     public function __construct(
-        private ExpoClient $client,
-        private Dispatcher $events,
+        private readonly ExpoClient $client,
+        private readonly Dispatcher $events,
     ) {}
 
     /**

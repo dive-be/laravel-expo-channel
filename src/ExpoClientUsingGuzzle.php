@@ -28,7 +28,7 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     /**
      * The Guzzle HTTP client instance.
      */
-    private Client $http;
+    private readonly Client $http;
 
     /**
      * Create a new ExpoClient instance.

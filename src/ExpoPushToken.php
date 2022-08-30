@@ -16,7 +16,7 @@ final class ExpoPushToken implements Castable, Stringable
     /**
      * The string representation of the push token.
      */
-    private string $value;
+    private readonly string $value;
 
     /**
      * Create a new ExpoPushToken instance.
