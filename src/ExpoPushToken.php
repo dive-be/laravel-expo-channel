@@ -11,7 +11,7 @@ final class ExpoPushToken implements Castable, Stringable
     /**
      * The minimum acceptable length of a push token.
      */
-    public const MIN_LENGTH = 15;
+    public const MIN_LENGTH = 16;
 
     /**
      * The string representation of the push token.
