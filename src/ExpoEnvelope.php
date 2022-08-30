@@ -39,7 +39,6 @@ final class ExpoEnvelope implements Arrayable, Jsonable
     public function toArray(): array
     {
         $envelope = $this->message->toArray();
-
         $envelope['to'] = array_map(static fn (ExpoPushToken $token) => $token->asString(), $this->recipients);
 
         return $envelope;
