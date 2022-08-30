@@ -106,7 +106,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     private bool $mutableContent = false;
 
     /**
-     * ExpoMessage constructor.
+     * Create a new ExpoMessage instance.
      */
     private function __construct(string $title, string $body)
     {

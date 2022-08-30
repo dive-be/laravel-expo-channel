@@ -9,11 +9,17 @@ use GuzzleHttp\Psr7\Response;
  */
 final class ExpoResponse
 {
+    /**
+     * Create a new ExpoResponse instance.
+     */
     private function __construct(
         public readonly bool $failure,
         public readonly array $errors,
     ) {}
 
+    /**
+     * Create a new ExpoResponse instance from a given Response.
+     */
     public static function fromGuzzle(Response $response): self
     {
         $body = json_decode((string) $response->getBody(), true);

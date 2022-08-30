@@ -7,7 +7,10 @@ use InvalidArgumentException;
 
 final class ExpoPushTokenRule implements InvokableRule
 {
-    public function __invoke($attribute, $value, $fail)
+    /**
+     * Run the rule and determine whether the value is a valid push token.
+     */
+    public function __invoke($attribute, $value, $fail): void
     {
         try {
             ExpoPushToken::fromString($value);
