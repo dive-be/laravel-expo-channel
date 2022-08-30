@@ -5,10 +5,13 @@ namespace Tests\Unit;
 use NotificationChannels\Expo\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
+use Tests\ExpoTokensDataset;
 use UnexpectedValueException;
 
 class ExpoPushTokenTest extends TestCase
 {
+    use ExpoTokensDataset;
+
     /**
      * @dataProvider valid
      * @test
@@ -47,25 +50,5 @@ class ExpoPushTokenTest extends TestCase
 
         $this->assertSame($value, $token->asString());
         $this->assertSame($value, (string) $token);
-    }
-
-    public function invalid(): array
-    {
-        return [
-            ['exponentpushtoken[FtT1dBIc5Wp92HEGuJUhL4]'],
-            ['ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4'],
-            ['ExponentPushToken-FtT1dBIc5Wp92HEGuJUhL4'],
-            ['ExpoPushToken[FtT1dBIc5Wp92HEGuJUhL4'],
-            ['FtT1dBIc5Wp92HEGuJUhL4'],
-            ['ExpoPushToken[]'],
-        ];
-    }
-
-    public function valid(): array
-    {
-        return [
-            ['ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]'],
-            ['ExpoPushToken[FtT1dBIc5Wp92HEGuJUhL4]'],
-        ];
     }
 }
