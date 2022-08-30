@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/dive-be/laravel-expo-channel/blob/master/art/socialcard.png?raw=true" alt="Social Card of Laravel Expo Channel"></p>
+<p align="center"><img src="https://github.com/dive-be/laravel-expo-channel/blob/master/art/expo.png?raw=true" alt="Social Card of Laravel Expo Channel"></p>
 
 # Expo Notifications Channel
 
