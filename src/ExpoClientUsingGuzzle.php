@@ -16,7 +16,7 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     private const BASE_URL = 'https://exp.host/--/api/v2';
 
     /**
-     * 1 KiB in Bytes.
+     * 1 KiB in bytes.
      */
     private const KIBIBYTE = 1024;
 
