@@ -22,7 +22,7 @@ final class ExpoServiceProvider extends ServiceProvider
      */
     private function createExpoChannel(Application $app): ExpoChannel
     {
-        $client = new ExpoClient($app['config']['services.expo.access_token']);
+        $client = new ExpoClientUsingGuzzle($app['config']['services.expo.access_token']);
 
         return new ExpoChannel($client, $app['events']);
     }
