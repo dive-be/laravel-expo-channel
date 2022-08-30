@@ -8,7 +8,7 @@ use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-class CastTest extends TestCase
+final class CastTest extends TestCase
 {
     /** @test */
     public function it_can_get_an_attribute_as_an_expo_push_token()

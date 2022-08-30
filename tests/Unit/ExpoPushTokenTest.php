@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Tests\ExpoTokensDataset;
 use UnexpectedValueException;
 
-class ExpoPushTokenTest extends TestCase
+final class ExpoPushTokenTest extends TestCase
 {
     use ExpoTokensDataset;
 

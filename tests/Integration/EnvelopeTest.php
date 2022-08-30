@@ -8,7 +8,7 @@ use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-class EnvelopeTest extends TestCase
+final class EnvelopeTest extends TestCase
 {
     /** @test */
     public function it_can_create_an_instance()

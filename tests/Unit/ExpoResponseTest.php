@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7\Response;
 use NotificationChannels\Expo\ExpoResponse;
 use PHPUnit\Framework\TestCase;
 
-class ExpoResponseTest extends TestCase
+final class ExpoResponseTest extends TestCase
 {
     /** @test */
     public function it_can_create_a_failure_response()

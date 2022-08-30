@@ -10,7 +10,7 @@ use NotificationChannels\Expo\ExpoPushTokenRule;
 use PHPUnit\Framework\TestCase;
 use Tests\ExpoTokensDataset;
 
-class ValidationTest extends TestCase
+final class ValidationTest extends TestCase
 {
     use ExpoTokensDataset;
 

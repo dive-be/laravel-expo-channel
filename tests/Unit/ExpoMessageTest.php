@@ -10,7 +10,7 @@ use NotificationChannels\Expo\ExpoMessage;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-class ExpoMessageTest extends TestCase
+final class ExpoMessageTest extends TestCase
 {
     /** @test */
     public function it_can_be_constructed_with_a_title_and_a_body()
