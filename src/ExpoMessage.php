@@ -12,7 +12,7 @@ use UnexpectedValueException;
 /**
  * Expo Message Request Format.
  *
- * @see ExpoMessage::$https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format
+ * @see https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format
  */
 final class ExpoMessage implements Arrayable, JsonSerializable
 {
@@ -98,7 +98,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
      * ID of the notification category that this notification is associated with.
      * Must be on at least SDK 41 or bare workflow.
      *
-     * @see ExpoMessage::$https://docs.expo.dev/versions/latest/sdk/notifications/#managing-notification-categories-interactive-notifications Notification categories
+     * @see https://docs.expo.dev/versions/latest/sdk/notifications/#managing-notification-categories-interactive-notifications Notification categories
      */
     private ?string $categoryId = null;
 
