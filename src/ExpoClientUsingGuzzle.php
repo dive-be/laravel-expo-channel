@@ -12,9 +12,9 @@ use Psr\Http\Message\ResponseInterface;
 final class ExpoClientUsingGuzzle implements ExpoClient
 {
     /**
-     * Expo's API URL (v2).
+     * Expo's Push API URL.
      */
-    private const BASE_URL = 'https://exp.host/--/api/v2';
+    private const BASE_URL = 'https://exp.host/--/api/v2/push/send';
 
     /**
      * 1 KiB in bytes.
@@ -37,8 +37,7 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     public function __construct(?string $accessToken = null)
     {
         $this->http = new Client([
-            'base_uri' => self::BASE_URL,
-            'headers' => array_filter([
+            RequestOptions::HEADERS => array_filter([
                 'Accept' => 'application/json',
                 'Accept-Encoding' => 'gzip, deflate',
                 'Authorization' => is_string($accessToken) ? "Bearer {$accessToken}" : $accessToken,
@@ -55,7 +54,7 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     {
         [$headers, $body] = $this->compressUsingGzip($envelope->toJson());
 
-        $response = $this->http->post('/push/send', [
+        $response = $this->http->post(self::BASE_URL, [
             RequestOptions::BODY => $body,
             RequestOptions::HEADERS => $headers,
             RequestOptions::HTTP_ERRORS => false,
