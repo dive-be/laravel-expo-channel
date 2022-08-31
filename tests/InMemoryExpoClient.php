@@ -6,15 +6,33 @@ use NotificationChannels\Expo\ExpoClient;
 use NotificationChannels\Expo\ExpoEnvelope;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoErrorType;
+use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\ExpoResponse;
+use PHPUnit\Framework\Assert;
 
 final class InMemoryExpoClient implements ExpoClient
 {
     public const VALID_TOKEN = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]';
 
+    private ?ExpoEnvelope $envelope = null;
+
+    public function assertNothingSent()
+    {
+        Assert::assertNull($this->envelope, 'Push notification was sent unexpectedly.');
+    }
+
+    public function assertSent(ExpoPushToken $token, ExpoMessage $message)
+    {
+        Assert::assertNotNull($this->envelope, 'A push notification was not sent');
+        Assert::assertContainsEquals($token, $this->envelope->recipients, "A push notification was not sent to {$token}");
+        Assert::assertEquals($message, $this->envelope->message, "The message was not sent to {$token}");
+    }
+
     public function sendPushNotifications(ExpoEnvelope $envelope): ExpoResponse
     {
+        $this->record($envelope);
+
         $errors = [];
 
         foreach ($envelope->recipients as $token) {
@@ -33,5 +51,10 @@ final class InMemoryExpoClient implements ExpoClient
             ExpoErrorType::DeviceNotRegistered,
             "{$token} is not a registered push notification recipient"
         );
+    }
+
+    private function record(ExpoEnvelope $envelope)
+    {
+        $this->envelope = $envelope;
     }
 }
