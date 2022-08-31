@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use NotificationChannels\Expo\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
+use InvalidArgumentException;
 use UnexpectedValueException;
 
-final class CastTest extends TestCase
+final class CastingTest extends TestCase
 {
     /** @test */
     public function it_can_get_an_attribute_as_an_expo_push_token()
@@ -43,6 +44,15 @@ final class CastTest extends TestCase
         $this->expectException(UnexpectedValueException::class);
 
         new User(['expo_token' => 'blablabla']);
+    }
+
+    /** @test */
+    public function it_disallows_invalid_data_types()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectDeprecationMessage('The given value cannot be serialized as a valid ExpoPushToken.');
+
+        new User(['expo_token' => 12345]);
     }
 }
 

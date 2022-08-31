@@ -14,6 +14,16 @@ final class ValidationTest extends TestCase
 {
     use ExpoTokensDataset;
 
+    /** @test */
+    public function it_fails_due_to_data_type()
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('validation.string');
+
+        $validator = new Validator($this->trans(), ['token' => 12345], ['token' => ExpoPushTokenRule::make()]);
+        $validator->validate();
+    }
+
     /**
      * @dataProvider invalid
      * @test

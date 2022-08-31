@@ -7,6 +7,7 @@ use NotificationChannels\Expo\ExpoChannel;
 use NotificationChannels\Expo\ExpoServiceProvider;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 final class ServiceBindingsTest extends TestCase
 {
@@ -32,5 +33,19 @@ final class ServiceBindingsTest extends TestCase
         $cm = $app->make(ChannelManager::class);
 
         $this->assertSame($cm->channel(ExpoChannel::NAME), $app->make(ExpoChannel::class));
+    }
+
+    /** @test */
+    public function it_throws_if_an_invalid_access_token_is_passed()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The provided access token is not a valid Expo Access Token.');
+
+        $app = $this->createApplication();
+        $app->register(ExpoServiceProvider::class);
+
+        $app['config']['services.expo.access_token'] = 123456789;
+
+        $app->make(ExpoChannel::class);
     }
 }
