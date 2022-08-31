@@ -87,9 +87,9 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     /**
      * Get an array of potential errors responded by the service.
      *
-     * @param $tokens array<ExpoPushToken>
+     * @param $tokens array<int, ExpoPushToken>
      *
-     * @return array<ExpoError>
+     * @return array<int, ExpoError>
      */
     private function getPotentialErrors(array $tokens, array $tickets): array
     {

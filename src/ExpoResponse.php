@@ -10,7 +10,7 @@ final class ExpoResponse
     /**
      * Create a new ExpoResponse instance.
      *
-     * @param $errors array<ExpoError>
+     * @param $errors array<int, ExpoError>
      */
     private function __construct(
         public readonly bool $failure,
@@ -20,7 +20,7 @@ final class ExpoResponse
     /**
      * Create a "failed" ExpoResponse instance.
      *
-     * @param $errors array<ExpoError>
+     * @param $errors array<int, ExpoError>
      */
     public static function failure(array $errors): self
     {

@@ -81,7 +81,7 @@ final class ExpoChannel
     /**
      * Get the recipients that the message should be delivered to.
      *
-     * @return array<ExpoPushToken>
+     * @return array<int, ExpoPushToken>
      */
     private function getTokens(object $notifiable, Notification $notification): array
     {

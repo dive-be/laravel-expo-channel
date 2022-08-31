@@ -17,7 +17,7 @@ final class ExpoEnvelope implements Arrayable, Jsonable
     /**
      * Create a new ExpoEnvelope instance.
      *
-     * @param array<ExpoPushToken> $recipients
+     * @param array<int, ExpoPushToken> $recipients
      */
     private function __construct(
         public readonly array $recipients,
