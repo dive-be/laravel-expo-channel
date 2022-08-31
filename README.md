@@ -8,6 +8,20 @@
 
 [Expo](https://docs.expo.dev/push-notifications/overview/) channel for pushing notifications to your React Native apps.
 
+## Contents
+
+- [Disclaimer](#disclaimer)
+- [Installation](#installation)
+- [Additional Security](#additional-security-optional)
+- [Usage](#usage)
+- [Expo Message Request Format](#expo-message-request-format)
+- [Testing](#testing)
+- [Changelog](#changelog)
+- [Contributing](#contributing) 
+- [Security](#security)
+- [Credits](#credits)
+- [License](#license)
+
 ## Disclaimer
 
 This package is not (yet) part of the [Laravel Notification Channels](https://laravel-notification-channels.com) project, because the maintainer seems to be inactive and the [existing expo channel](https://github.com/laravel-notification-channels/expo/issues/1) has never been completed and is pretty much abandoned. This package respects all of the project's conventions (namespace, message creation ...), so a possible migration in the future should just be about replacing the package's name in your `composer.json`.
