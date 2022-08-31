@@ -84,7 +84,7 @@ public function toExpo($notifiable): ExpoMessage
     return ExpoMessage::create('Suspicious Activity')
         ->body('Someone tried logging in to your account!')
         ->when($notifiable->wantsSound(), fn ($msg) => $msg->playSound())
-        ->unless($notifiable->isVip(), fn ($msg) => $msg->priority('normal'), fn ($msg) => $msg->priority('high'));
+        ->unless($notifiable->isVip(), fn ($msg) => $msg->normal(), fn ($msg) => $msg->high());
 }
 ```
 
