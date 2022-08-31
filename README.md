@@ -62,6 +62,18 @@ final class SuspiciousActivityDetected extends Notification
 
 > **Note** Detailed explanation regarding the Expo Message Request Format can be found [here](#expo-message-request-format).
 
+You can also apply conditionals to `ExpoMessage` without breaking the method chain:
+
+```php
+public function toExpo($notifiable): ExpoMessage
+{
+    return ExpoMessage::create('Suspicious Activity')
+        ->body('Someone tried logging in to your account!')
+        ->when($notifiable->wantsSound(), fn ($msg) => $msg->playSound())
+        ->unless($notifiable->isVip(), fn ($msg) => $msg->priority('normal'), fn ($msg) => $msg->priority('high'));
+}
+```
+
 ### Notifiable / `ExpoPushToken`
 
 Next, you will have to set a `routeNotificationForExpo()` method in your `Notifiable` model. 
@@ -84,7 +96,7 @@ final class User extends Authenticatable
 }
 ```
 
-> **Note** More info regarding the model cast can be found [here](#model-casting)
+> **Note** More info regarding the model cast can be found [here](#model-casting).
 
 #### Multicasting (multiple devices)
 
