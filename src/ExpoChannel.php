@@ -42,7 +42,7 @@ final class ExpoChannel
         $message = $this->getMessage($notifiable, $notification);
 
         $response = $this->client->sendPushNotifications(
-            ExpoEnvelope::create($tokens, $message)
+            ExpoEnvelope::make($tokens, $message)
         );
 
         if ($response->failure) {

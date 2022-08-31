@@ -2,12 +2,15 @@
 
 namespace NotificationChannels\Expo;
 
+use Dive\Utils\Makeable;
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use Stringable;
 use UnexpectedValueException;
 
 final class ExpoPushToken implements Castable, Stringable
 {
+    use Makeable;
+
     /**
      * The minimum acceptable length of a push token.
      */
@@ -46,14 +49,6 @@ final class ExpoPushToken implements Castable, Stringable
     public static function castUsing(array $arguments): string
     {
         return AsExpoPushToken::class;
-    }
-
-    /**
-     * @see __construct()
-     */
-    public static function fromString(string $value): self
-    {
-        return new self($value);
     }
 
     /**

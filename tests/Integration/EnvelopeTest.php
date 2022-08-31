@@ -11,9 +11,9 @@ use UnexpectedValueException;
 final class EnvelopeTest extends TestCase
 {
     /** @test */
-    public function it_can_create_an_instance()
+    public function it_can_make_an_instance()
     {
-        $envelope = ExpoEnvelope::create($this->recipients(), $this->message());
+        $envelope = ExpoEnvelope::make($this->recipients(), $this->message());
 
         $this->assertInstanceOf(ExpoEnvelope::class, $envelope);
     }
@@ -24,13 +24,13 @@ final class EnvelopeTest extends TestCase
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('There must be at least 1 recipient.');
 
-        ExpoEnvelope::create([], $this->message());
+        ExpoEnvelope::make([], $this->message());
     }
 
     /** @test */
     public function it_is_arrayable_and_jsonable()
     {
-        $envelope = ExpoEnvelope::create($this->recipients(), $this->message());
+        $envelope = ExpoEnvelope::make($this->recipients(), $this->message());
 
         $array = $envelope->toArray();
 
@@ -49,7 +49,7 @@ final class EnvelopeTest extends TestCase
 
     private function recipients(): array
     {
-        return [ExpoPushToken::fromString('ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]')];
+        return [ExpoPushToken::make('ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]')];
     }
 
     private function message(): ExpoMessage

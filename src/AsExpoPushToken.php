@@ -13,7 +13,7 @@ final class AsExpoPushToken implements CastsAttributes
     public function get($model, string $key, $value, array $attributes): ExpoPushToken
     {
         if (is_string($value)) {
-            return ExpoPushToken::fromString($value);
+            return ExpoPushToken::make($value);
         }
 
         if ($value instanceof ExpoPushToken) {

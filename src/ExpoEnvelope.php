@@ -2,6 +2,7 @@
 
 namespace NotificationChannels\Expo;
 
+use Dive\Utils\Makeable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use UnexpectedValueException;
@@ -11,6 +12,8 @@ use UnexpectedValueException;
  */
 final class ExpoEnvelope implements Arrayable, Jsonable
 {
+    use Makeable;
+
     /**
      * Create a new ExpoEnvelope instance.
      *
@@ -23,14 +26,6 @@ final class ExpoEnvelope implements Arrayable, Jsonable
         if (! count($this->recipients)) {
             throw new UnexpectedValueException('There must be at least 1 recipient.');
         }
-    }
-
-    /**
-     * @see __construct()
-     */
-    public static function create(array $recipients, ExpoMessage $message): self
-    {
-        return new self($recipients, $message);
     }
 
     /**

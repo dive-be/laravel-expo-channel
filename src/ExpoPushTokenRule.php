@@ -2,18 +2,13 @@
 
 namespace NotificationChannels\Expo;
 
+use Dive\Utils\Makeable;
 use Illuminate\Contracts\Validation\InvokableRule;
 use UnexpectedValueException;
 
 final class ExpoPushTokenRule implements InvokableRule
 {
-    /**
-     * Create a new ExpoPushTokenRule instance.
-     */
-    public static function make(): self
-    {
-        return new self();
-    }
+    use Makeable;
 
     /**
      * Run the rule and determine whether the value is a valid push token.
@@ -27,7 +22,7 @@ final class ExpoPushTokenRule implements InvokableRule
         }
 
         try {
-            ExpoPushToken::fromString($value);
+            ExpoPushToken::make($value);
         } catch (UnexpectedValueException $ex) {
             $fail($ex->getMessage());
         }

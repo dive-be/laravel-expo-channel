@@ -18,7 +18,7 @@ final class ExpoPushTokenTest extends TestCase
      */
     public function it_can_create_an_instance(string $value)
     {
-        $token = ExpoPushToken::fromString($value);
+        $token = ExpoPushToken::make($value);
 
         $this->assertSame($value, $token->asString());
     }
@@ -32,7 +32,7 @@ final class ExpoPushTokenTest extends TestCase
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage("{$value} is not a valid push token.");
 
-        ExpoPushToken::fromString($value);
+        ExpoPushToken::make($value);
     }
 
     /** @test */
@@ -46,7 +46,7 @@ final class ExpoPushTokenTest extends TestCase
     /** @test */
     public function it_is_stringable()
     {
-        $token = ExpoPushToken::fromString($value = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]');
+        $token = ExpoPushToken::make($value = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]');
 
         $this->assertSame($value, $token->asString());
         $this->assertSame($value, (string) $token);
