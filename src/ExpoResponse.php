@@ -2,8 +2,6 @@
 
 namespace NotificationChannels\Expo;
 
-use Psr\Http\Message\ResponseInterface;
-
 /**
  * @internal
  */
@@ -11,30 +9,18 @@ final class ExpoResponse
 {
     /**
      * Create a new ExpoResponse instance.
+     *
+     * @param $errors array<ExpoError>
      */
     private function __construct(
         public readonly bool $failure,
-        public readonly array $errors,
+        public readonly array $errors = [],
     ) {}
 
     /**
-     * Create a new ExpoResponse instance from a given Response.
-     */
-    public static function fromGuzzle(ResponseInterface $response): self
-    {
-        $body = json_decode((string) $response->getBody(), true);
-
-        if (! is_array($body) || array_is_list($body)) {
-            return self::failure([]);
-        }
-
-        $isFailure = ($body['data']['status'] ?? 'error') === 'error';
-
-        return $isFailure ? self::failure($body['errors']) : self::ok();
-    }
-
-    /**
      * Create a "failed" ExpoResponse instance.
+     *
+     * @param $errors array<ExpoError>
      */
     public static function failure(array $errors): self
     {
@@ -46,6 +32,6 @@ final class ExpoResponse
      */
     public static function ok(): self
     {
-        return new self(false, []);
+        return new self(false);
     }
 }

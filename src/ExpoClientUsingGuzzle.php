@@ -4,6 +4,7 @@ namespace NotificationChannels\Expo;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @internal
@@ -60,7 +61,10 @@ final class ExpoClientUsingGuzzle implements ExpoClient
             RequestOptions::HTTP_ERRORS => false,
         ]);
 
-        return ExpoResponse::fromGuzzle($response);
+        $tickets = $this->getPushTickets($response);
+        $errors = $this->getPotentialErrors($envelope->recipients, $tickets);
+
+        return count($errors) ? ExpoResponse::failure($errors) : ExpoResponse::ok();
     }
 
     /**
@@ -79,5 +83,43 @@ final class ExpoClientUsingGuzzle implements ExpoClient
         }
 
         return [['Content-Encoding' => 'gzip'], $encoded];
+    }
+
+    /**
+     * Get an array of potential errors responded by the service.
+     *
+     * @param $tokens array<ExpoPushToken>
+     *
+     * @return array<ExpoError>
+     */
+    private function getPotentialErrors(array $tokens, array $tickets): array
+    {
+        $errors = [];
+
+        for ($i = 0; $i < count($tickets); $i++) {
+            $ticket = $tickets[$i];
+
+            if ($ticket['status'] === 'ok') {
+                continue;
+            }
+
+            $errors[] = ExpoError::make(
+                $tokens[$i],
+                ExpoErrorType::from($ticket['details']['error']),
+                $ticket['message'],
+            );
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Get the array of push tickets responded by the service.
+     */
+    private function getPushTickets(ResponseInterface $response): array
+    {
+        $body = json_decode((string) $response->getBody(), true);
+
+        return is_array($body) && array_key_exists('data', $body) ? $body['data'] : [];
     }
 }
