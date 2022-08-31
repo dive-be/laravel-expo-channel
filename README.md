@@ -1,8 +1,10 @@
-<p align="center"><img src="https://github.com/dive-be/laravel-expo-channel/blob/master/art/expo.png?raw=true" alt="Social Card of Laravel Expo Channel"></p>
+<p align="center"><img src="https://github.com/dive-be/laravel-expo-channel/blob/master/art/socialcard.png?raw=true" alt="Social Card of Laravel Expo Channel"></p>
 
 # Expo Notifications Channel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dive-be/laravel-expo-channel.svg?style=flat-square)](https://packagist.org/packages/dive-be/laravel-expo-channel)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/dive-be/laravel-expo-channel/Tests?label=tests)](https://github.com/dive-be/laravel-expo-channel/actions?query=workflow%3ATests+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/dive-be/laravel-expo-channel.svg?style=flat-square)](https://packagist.org/packages/dive-be/laravel-expo-channel)
 
 [Expo](https://docs.expo.dev/push-notifications/overview/) channel for pushing notifications to your React Native apps.
 
