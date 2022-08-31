@@ -283,7 +283,7 @@ title(string $value)
 ```
 
 > **Note**
-> The title must not be empty.
+> The value must not be empty.
 
 ### TTL (Time to live)
 
