@@ -23,8 +23,8 @@ final class ExpoPushTokenRule implements InvokableRule
 
         try {
             ExpoPushToken::make($value);
-        } catch (UnexpectedValueException $ex) {
-            $fail($ex->getMessage());
+        } catch (UnexpectedValueException) {
+            $fail('validation.regex')->translate();
         }
     }
 }

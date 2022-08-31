@@ -31,7 +31,7 @@ final class ValidationRuleTest extends TestCase
     public function it_fails(string $token)
     {
         $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage("{$token} is not a valid push token.");
+        $this->expectExceptionMessage('validation.regex');
 
         $validator = new Validator($this->trans(), compact('token'), ['token' => ExpoPushTokenRule::make()]);
         $validator->validate();

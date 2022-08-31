@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use NotificationChannels\Expo\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
+use NotificationChannels\Expo\ExpoPushTokenRule;
 use PHPUnit\Framework\TestCase;
 use Tests\ExpoTokensDataset;
 use UnexpectedValueException;
@@ -54,6 +55,14 @@ final class ExpoPushTokenTest extends TestCase
         $caster = ExpoPushToken::castUsing([]);
 
         $this->assertSame(AsExpoPushToken::class, $caster);
+    }
+
+    /** @test */
+    public function it_can_be_validated()
+    {
+        $rule = ExpoPushToken::rule();
+
+        $this->assertInstanceOf(ExpoPushTokenRule::class, $rule);
     }
 
     /** @test */

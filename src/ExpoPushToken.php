@@ -52,6 +52,14 @@ final class ExpoPushToken implements Castable, Stringable
     }
 
     /**
+     * Get the rule to validate an expo push token.
+     */
+    public static function rule(): ExpoPushTokenRule
+    {
+        return ExpoPushTokenRule::make();
+    }
+
+    /**
      * @see __toString()
      */
     public function asString(): string
