@@ -245,7 +245,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
      *
      * @see ExpoMessage::$expiration
      */
-    public function expires(DateTimeInterface|int $value): self
+    public function expiresIn(DateTimeInterface|int $value): self
     {
         if ($value instanceof DateTimeInterface) {
             $value = $value->getTimestamp();
@@ -348,6 +348,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
         $this->subtitle = $value;
 
         return $this;
+    }
+
+    /**
+     * @see ExpoMessage::body()
+     */
+    public function text(string $value): self
+    {
+        return $this->body($value);
     }
 
     /**

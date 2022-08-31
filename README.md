@@ -46,7 +46,7 @@ final class SuspiciousActivityDetected extends Notification
         return ExpoMessage::create('Suspicious Activity')
             ->body('Someone tried logging in to your account!')
             ->data($notifiable->only('email', 'id'))
-            ->expires(Carbon::now()->addHour())
+            ->expiresIn(Carbon::now()->addHour())
             ->priority('high')
             ->playSound();
     }
@@ -273,7 +273,7 @@ default()
 Sets the expiration time of the message. Same effect as TTL.
 
 ```php
-expires(DateTimeInterface|int $value)
+expiresIn(DateTimeInterface|int $value)
 ```
 
 > **Warning**
@@ -344,6 +344,17 @@ subtitle(string $value)
 
 > **Note**
 > The value must not be empty.
+
+### Text
+
+See [body](#body).
+
+```php
+text(string $value)
+```
+
+> **Note**
+> Alias for `body`.
 
 ### Title
 
