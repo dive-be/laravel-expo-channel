@@ -2,7 +2,7 @@
 
 namespace NotificationChannels\Expo;
 
-use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @internal
@@ -20,14 +20,17 @@ final class ExpoResponse
     /**
      * Create a new ExpoResponse instance from a given Response.
      */
-    public static function fromGuzzle(Response $response): self
+    public static function fromGuzzle(ResponseInterface $response): self
     {
         $body = json_decode((string) $response->getBody(), true);
 
-        return new self(
-            $body['data']['status'] !== 'ok' ?? true,
-            $body['errors'] ?? [],
-        );
+        if (! is_array($body) || array_is_list($body)) {
+            return self::failure([]);
+        }
+
+        $isFailure = ($body['data']['status'] ?? 'error') === 'error';
+
+        return $isFailure ? self::failure($body['errors']) : self::ok();
     }
 
     /**

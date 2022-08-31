@@ -5,6 +5,11 @@ parameters:
     paths:
         - src
 
-    level: 5
+    level: max
 
     checkMissingIterableValueType: false
+
+    checkGenericClassInNonGenericObjectType: false
+
+    ignoreErrors:
+        - '#Property NotificationChannels\\Expo\\ExpoMessage::\$.* is never read, only written\.#'

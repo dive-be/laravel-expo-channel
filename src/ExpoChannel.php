@@ -31,7 +31,7 @@ final class ExpoChannel
     /**
      * Send the notification to Expo's Push API.
      */
-    public function send(mixed $notifiable, Notification $notification): void
+    public function send(object $notifiable, Notification $notification): void
     {
         $tokens = $this->getTokens($notifiable, $notification);
 
@@ -53,7 +53,7 @@ final class ExpoChannel
     /**
      * Dispatch failed events for notifications that weren't delivered.
      */
-    private function dispatchFailedEvents(mixed $notifiable, Notification $notification, array $errors): void
+    private function dispatchFailedEvents(object $notifiable, Notification $notification, array $errors): void
     {
         foreach ($errors as $error) {
             $this->events->dispatch(new NotificationFailed($notifiable, $notification, self::NAME, $error));
@@ -63,10 +63,10 @@ final class ExpoChannel
     /**
      * Get the message that should be delivered.
      */
-    private function getMessage(mixed $notifiable, Notification $notification): ExpoMessage
+    private function getMessage(object $notifiable, Notification $notification): ExpoMessage
     {
         if (! method_exists($notification, 'toExpo')) {
-            throw new RuntimeException('Notification is missing toExpo method.');
+            throw new RuntimeException('Notification is missing the toExpo method.');
         }
 
         $message = $notification->toExpo($notifiable);
@@ -83,8 +83,12 @@ final class ExpoChannel
      *
      * @return array<ExpoPushToken>
      */
-    private function getTokens(mixed $notifiable, Notification $notification): array
+    private function getTokens(object $notifiable, Notification $notification): array
     {
+        if (! method_exists($notifiable, 'routeNotificationFor')) {
+            throw new RuntimeException('You must provide an instance of Notifiable.');
+        }
+
         $tokens = $notifiable->routeNotificationFor(self::NAME, $notification);
 
         if ($tokens instanceof Arrayable) {

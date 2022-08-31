@@ -51,6 +51,6 @@ final class ExpoEnvelope implements Arrayable, Jsonable
      */
     public function toJson($options = 0): string
     {
-        return json_encode($this->toArray(), $options);
+        return json_encode($this->toArray(), $options) ?: '';
     }
 }

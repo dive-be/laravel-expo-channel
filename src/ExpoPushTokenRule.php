@@ -20,6 +20,12 @@ final class ExpoPushTokenRule implements InvokableRule
      */
     public function __invoke($attribute, $value, $fail): void
     {
+        if (! is_string($value)) {
+            $fail('validation.string')->translate();
+
+            return;
+        }
+
         try {
             ExpoPushToken::fromString($value);
         } catch (UnexpectedValueException $ex) {
