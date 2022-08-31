@@ -134,8 +134,8 @@ final class ExpoMessageTest extends TestCase
     /** @test */
     public function it_can_set_an_expiration()
     {
-        $msgA = ExpoMessage::create()->expiration($expiration = time() + 60);
-        $msgB = ExpoMessage::create()->expiration(Carbon::now()->addSeconds(60));
+        $msgA = ExpoMessage::create()->expires($expiration = time() + 60);
+        $msgB = ExpoMessage::create()->expires(Carbon::now()->addSeconds(60));
 
         ['expiration' => $expirationA] = $msgA->toArray();
         ['expiration' => $expirationB] = $msgB->toArray();
@@ -150,7 +150,7 @@ final class ExpoMessageTest extends TestCase
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The expiration time must be in the future.');
 
-        ExpoMessage::create()->expiration(time() - 60);
+        ExpoMessage::create()->expires(time() - 60);
     }
 
     /** @test */
