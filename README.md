@@ -34,11 +34,11 @@ If you want to make use of this additional security layer, add the following to 
 
 ## Usage
 
-First things first, you need to have a [Notification](https://laravel.com/docs/9.x/notifications) that needs to be delivered to someone. Check out the [Laravel documentation](https://laravel.com/docs/9.x/notifications#generating-notifications) for more information on generating notifications. 
-
-You can now use the `expo` channel in the `via()` method of the corresponding `Notification`.
+You can now use the `expo` channel in the `via()` method of your `Notification`s.
 
 ### Notification / `ExpoMessage`
+
+First things first, you need to have a [Notification](https://laravel.com/docs/9.x/notifications) that needs to be delivered to someone. Check out the [Laravel documentation](https://laravel.com/docs/9.x/notifications#generating-notifications) for more information on generating notifications. 
 
 ```php
 final class SuspiciousActivityDetected extends Notification
