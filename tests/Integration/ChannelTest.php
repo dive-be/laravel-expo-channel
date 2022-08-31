@@ -2,6 +2,7 @@
 
 namespace Tests\Integration;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Events\NullDispatcher;
 use Illuminate\Notifications\Events\NotificationFailed;
@@ -60,6 +61,28 @@ final class ChannelTest extends TestCase
             static fn (NotificationFailed $event) => $event->channel === 'expo' && $event->data instanceof ExpoError
         );
     }
+
+    /** @test */
+    public function it_doesnt_send_any_notifications_if_the_token_is_null()
+    {
+        $notifiable = new NullCustomer();
+        $notification = new FoodWasDelivered();
+
+        $this->channel->send($notifiable, $notification);
+
+        $this->client->assertNothingSent();
+    }
+
+    /** @test */
+    public function it_doesnt_send_any_notifications_if_the_token_collection_is_empty()
+    {
+        $notifiable = new EmptyCollectionCustomer();
+        $notification = new FoodWasDelivered();
+
+        $this->channel->send($notifiable, $notification);
+
+        $this->client->assertNothingSent();
+    }
 }
 
 final class FoodWasDelivered extends Notification
@@ -82,6 +105,16 @@ final class Customer
     }
 }
 
+final class EmptyCollectionCustomer
+{
+    use Notifiable;
+
+    public function routeNotificationForExpo(): Collection
+    {
+        return Collection::make([]);
+    }
+}
+
 final class FraudulentCustomer
 {
     use Notifiable;
@@ -89,5 +122,15 @@ final class FraudulentCustomer
     public function routeNotificationForExpo(): ExpoPushToken
     {
         return ExpoPushToken::make('ExpoPushToken[RmddzXcd66CsTIkQnCpYPa]');
+    }
+}
+
+final class NullCustomer
+{
+    use Notifiable;
+
+    public function routeNotificationForExpo()
+    {
+        return null;
     }
 }

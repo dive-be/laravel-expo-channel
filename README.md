@@ -94,7 +94,8 @@ Next, you will have to set a `routeNotificationForExpo()` method in your `Notifi
 
 #### Unicasting (single device)
 
-The method **must** return an instance of `ExpoPushToken`. An example:
+The method **must** return either an instance of `ExpoPushToken` or `null` (no notifications will be sent in that case). 
+An example:
 
 ```php
 final class User extends Authenticatable
@@ -103,7 +104,7 @@ final class User extends Authenticatable
 
     protected $casts = ['expo_token' => ExpoPushToken::class];
 
-    public function routeNotificationForExpo(): ExpoPushToken
+    public function routeNotificationForExpo(): ?ExpoPushToken
     {
         return $this->expo_token;
     }
@@ -114,7 +115,9 @@ final class User extends Authenticatable
 
 #### Multicasting (multiple devices)
 
-The method **must** return an `array<int, ExpoPushToken>` or `Collection<int, ExpoPushToken>`, the specific implementation depends on your use case. An example:
+The method **must** return an `array<int, ExpoPushToken>` or `Collection<int, ExpoPushToken>` 
+(no notifications will be sent in case of an empty collection), the specific implementation depends on your use case. 
+An example:
 
 ```php
 final class User extends Authenticatable

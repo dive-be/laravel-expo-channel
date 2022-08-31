@@ -39,6 +39,14 @@ final class CastingTest extends TestCase
     }
 
     /** @test */
+    public function it_ignores_nulls()
+    {
+        $user = new User(['expo_token' => null]);
+
+        $this->assertNull($user->expo_token);
+    }
+
+    /** @test */
     public function it_disallows_invalid_expo_push_tokens()
     {
         $this->expectException(UnexpectedValueException::class);
@@ -50,7 +58,7 @@ final class CastingTest extends TestCase
     public function it_disallows_invalid_data_types()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectDeprecationMessage('The given value cannot be serialized as a valid ExpoPushToken.');
+        $this->expectDeprecationMessage('The given value cannot be cast to an instance of ExpoPushToken.');
 
         new User(['expo_token' => 12345]);
     }
