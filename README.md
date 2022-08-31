@@ -36,9 +36,7 @@ First things first, you need to have a [Notification](https://laravel.com/docs/9
 
 You can now use the `expo` channel in the `via()` method of the corresponding `Notification`.
 
-### Notification / ExpoMessage
-
-Detailed explanation regarding the Expo Message Request Format can be found [here](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format).
+### Notification / `ExpoMessage`
 
 ```php
 final class SuspiciousActivityDetected extends Notification
@@ -60,15 +58,15 @@ final class SuspiciousActivityDetected extends Notification
 }
 ```
 
-> `ExpoMessage` does not accept a recipent (to), because that's derived from the `Notifiable` instance!
+> **Note** Detailed explanation regarding the Expo Message Request Format can be found [here](#expo-message-request-format).
 
-### Notifiable / ExpoPushToken
+### Notifiable / `ExpoPushToken`
 
 Next, you will have to set a `routeNotificationForExpo()` method in your `Notifiable` model. 
 
 #### Unicasting (single device)
 
-The method **must** return an instance of `ExpoPushToken`, which you can easily achieve by defining it in the `$casts` array of your model:
+The method **must** return an instance of `ExpoPushToken`. An example:
 
 ```php
 final class User extends Authenticatable
@@ -83,6 +81,8 @@ final class User extends Authenticatable
     }
 }
 ```
+
+> **Note** More info regarding the model cast can be found [here](#model-casting)
 
 #### Multicasting (multiple devices)
 
@@ -109,6 +109,77 @@ Once everything is in place, you can simply send a notification by calling:
 
 ```php
 $user->notify(new SuspiciousActivityDetected());
+```
+
+### Validation
+
+You ought to have an HTTP endpoint that associates a given `ExpoPushToken` with an authenticated `User` so that you can deliver push notifications. For this reason, we're also providing a custom validation `ExpoPushTokenRule` class which you can use to protect your endpoints. An example:
+
+```php
+final class StoreDeviceRequest extends FormRequest
+{
+    public function rules(): array
+    {
+        return [
+            'device_id' => ['required', 'string', 'min:2', 'max:255'],
+            'token' => ['required', ExpoPushToken::rule()],
+        ];
+    }
+}
+```
+
+### Model casting
+
+The `ExpoChannel` expects you to return an instance of `ExpoPushToken` from your `Notifiable`s. You can easily achieve this by applying the `ExpoPushToken` as a custom model cast. An example:
+
+```php
+final class User extends Authenticatable
+{
+    use Notifiable;
+
+    protected $casts = ['expo_token' => AsExpoPushToken::class];
+}
+```
+
+This custom value object guarantees the integrity of the push token. You should make sure that [only valid tokens](#validation) are saved. 
+
+### Handling failed deliveries
+
+Unfortunately, Laravel does not provide an [OOB solution](https://github.com/laravel-notification-channels/channels/issues/16) for handling failed deliveries. However, there is a `NotificationFailed` event which Laravel does provide so you can hook into failed delivery attempts. This is particularly useful when an old token is no longer valid and the service starts responding with `DeviceNotRegistered` errors.
+
+You can register an event listener that listens to this event and handles the appropriate errors. An example:
+
+```php
+final class HandleFailedExpoNotifications
+{
+    public function handle(NotificationFailed $event)
+    {
+        if ($event->channel !== ExpoChannel::NAME) return;
+        
+        /** @var ExpoError $error */
+        $error = $event->data;
+
+        // Remove old token
+        if ($error->type->isDeviceNotRegistered()) {
+            $event->notifiable->update(['expo_token' => null]);
+        } else {
+            // do something else like logging...
+        }
+    }
+}
+```
+
+The `NotificationFailed::$data` property will contain an instance of `ExpoError` which has the following properties:
+
+```php
+final class ExpoError
+{
+    private function __construct(
+        public readonly ExpoPushToken $token,
+        public readonly ExpoErrorType $type,
+        public readonly string $message,
+    ) {}
+}
 ```
 
 ## Expo Message Request Format
