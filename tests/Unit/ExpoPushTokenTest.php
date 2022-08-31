@@ -36,6 +36,19 @@ final class ExpoPushTokenTest extends TestCase
     }
 
     /** @test */
+    public function it_is_equatable()
+    {
+        $tokenA = ExpoPushToken::make('ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]');
+        $tokenB = ExpoPushToken::make('ExponentPushToken[JQoRAH65GV7qZX8YUyx8Rn]');
+        $tokenC = 'ExponentPushToken[JQoRAH65GV7qZX8YUyx8Rn]';
+
+        $this->assertTrue($tokenA->equals($tokenA));
+        $this->assertFalse($tokenA->equals($tokenB));
+        $this->assertFalse($tokenA->equals($tokenC));
+        $this->assertTrue($tokenB->equals($tokenC));
+    }
+
+    /** @test */
     public function it_is_castable()
     {
         $caster = ExpoPushToken::castUsing([]);

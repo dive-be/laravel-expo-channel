@@ -60,6 +60,18 @@ final class ExpoPushToken implements Castable, Stringable
     }
 
     /**
+     * Determine whether a given token is equal.
+     */
+    public function equals(self|string $other): bool
+    {
+        if ($other instanceof self) {
+            $other = $other->asString();
+        }
+
+        return $other === $this->asString();
+    }
+
+    /**
      * Get the string representation of the push token.
      */
     public function __toString(): string
