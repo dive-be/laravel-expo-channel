@@ -4,7 +4,7 @@ namespace Tests;
 
 trait ExpoTokensDataset
 {
-    public function invalid(): array
+    protected function invalid(): array
     {
         return [
             ['exponentpushtoken[FtT1dBIc5Wp92HEGuJUhL4]'],
@@ -16,7 +16,7 @@ trait ExpoTokensDataset
         ];
     }
 
-    public function valid(): array
+    protected function valid(): array
     {
         return [
             ['ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]'],
