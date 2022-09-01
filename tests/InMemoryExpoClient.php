@@ -17,6 +17,8 @@ final class InMemoryExpoClient implements ExpoClient
 
     private ?ExpoEnvelope $envelope = null;
 
+    private ?string $shouldBail = null;
+
     public function assertNothingSent()
     {
         Assert::assertNull($this->envelope, 'Push notification was sent unexpectedly.');
@@ -29,9 +31,20 @@ final class InMemoryExpoClient implements ExpoClient
         Assert::assertEquals($message, $this->envelope->message, "The message was not sent to {$token}");
     }
 
+    public function bail(string $message): self
+    {
+        $this->shouldBail = $message;
+
+        return $this;
+    }
+
     public function sendPushNotifications(ExpoEnvelope $envelope): ExpoResponse
     {
         $this->record($envelope);
+
+        if (is_string($this->shouldBail)) {
+            return ExpoResponse::fatal($this->shouldBail);
+        }
 
         $errors = [];
 
@@ -41,7 +54,7 @@ final class InMemoryExpoClient implements ExpoClient
             }
         }
 
-        return count($errors) ? ExpoResponse::failure($errors) : ExpoResponse::ok();
+        return count($errors) ? ExpoResponse::failed($errors) : ExpoResponse::ok();
     }
 
     private function newDeviceError(ExpoPushToken $token): ExpoError

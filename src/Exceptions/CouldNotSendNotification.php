@@ -15,4 +15,9 @@ final class CouldNotSendNotification extends Exception
     {
         return new self('Notification is missing the toExpo method.');
     }
+
+    public static function serviceRespondedWithAnError(string $message): self
+    {
+        return new self("Expo responded with an error: {$message}");
+    }
 }

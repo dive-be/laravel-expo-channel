@@ -21,10 +21,10 @@ trait ExpoClientContractTests
 
         $response = $this->client()->sendPushNotifications($envelope);
 
-        $this->assertTrue($response->failure);
-        $this->assertCount(2, $response->errors);
+        $this->assertTrue($response->isFailure());
+        $this->assertCount(2, $errors = $response->errors());
 
-        $error = $response->errors[1];
+        [, $error] = $errors;
 
         $this->assertTrue($error->token->equals($token));
         $this->assertTrue($error->type->isDeviceNotRegistered());

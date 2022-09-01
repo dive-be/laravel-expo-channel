@@ -18,6 +18,11 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     private const BASE_URL = 'https://exp.host/--/api/v2/push/send';
 
     /**
+     * OK status code.
+     */
+    private const HTTP_OK = 200;
+
+    /**
      * 1 KiB in bytes.
      */
     private const KIBIBYTE = 1024;
@@ -61,10 +66,14 @@ final class ExpoClientUsingGuzzle implements ExpoClient
             RequestOptions::HTTP_ERRORS => false,
         ]);
 
+        if ($response->getStatusCode() !== self::HTTP_OK) {
+            return ExpoResponse::fatal((string) $response->getBody());
+        }
+
         $tickets = $this->getPushTickets($response);
         $errors = $this->getPotentialErrors($envelope->recipients, $tickets);
 
-        return count($errors) ? ExpoResponse::failure($errors) : ExpoResponse::ok();
+        return count($errors) ? ExpoResponse::failed($errors) : ExpoResponse::ok();
     }
 
     /**

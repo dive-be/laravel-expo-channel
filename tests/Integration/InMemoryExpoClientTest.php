@@ -27,8 +27,7 @@ final class InMemoryExpoClientTest extends TestCase
 
         $response = $this->client()->sendPushNotifications($envelope);
 
-        $this->assertFalse($response->failure);
-        $this->assertCount(0, $response->errors);
+        $this->assertTrue($response->isOk());
     }
 
     /** @test */
@@ -41,8 +40,8 @@ final class InMemoryExpoClientTest extends TestCase
 
         $response = $this->client()->sendPushNotifications($envelope);
 
-        $this->assertTrue($response->failure);
-        $this->assertCount(1, $response->errors);
+        $this->assertTrue($response->isFailure());
+        $this->assertCount(1, $response->errors());
     }
 
     protected function client(): ExpoClient

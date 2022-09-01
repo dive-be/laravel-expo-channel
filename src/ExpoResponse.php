@@ -7,14 +7,18 @@ namespace NotificationChannels\Expo;
  */
 final class ExpoResponse
 {
+    private const FAILED = 'failed';
+    private const FATAL = 'fatal';
+    private const OK = 'ok';
+
     /**
      * Create a new ExpoResponse instance.
      *
      * @param $errors array<int, ExpoError>
      */
     private function __construct(
-        public readonly bool $failure,
-        public readonly array $errors = [],
+        private readonly string $type,
+        private readonly array|string|null $context = null,
     ) {}
 
     /**
@@ -22,9 +26,17 @@ final class ExpoResponse
      *
      * @param $errors array<int, ExpoError>
      */
-    public static function failure(array $errors): self
+    public static function failed(array $errors): self
     {
-        return new self(true, $errors);
+        return new self(self::FAILED, $errors);
+    }
+
+    /**
+     * Create a "fatal" ExpoResponse instance.
+     */
+    public static function fatal(string $message): self
+    {
+        return new self(self::FATAL, $message);
     }
 
     /**
@@ -32,6 +44,31 @@ final class ExpoResponse
      */
     public static function ok(): self
     {
-        return new self(false);
+        return new self(self::OK);
+    }
+
+    public function errors(): array
+    {
+        return is_array($this->context) ? $this->context : [];
+    }
+
+    public function isFatal(): bool
+    {
+        return $this->type === self::FATAL;
+    }
+
+    public function isFailure(): bool
+    {
+        return $this->type === self::FAILED;
+    }
+
+    public function isOk(): bool
+    {
+        return $this->type === self::OK;
+    }
+
+    public function message(): string
+    {
+        return is_string($this->context) ? $this->context : '';
     }
 }

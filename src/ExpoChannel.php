@@ -46,8 +46,10 @@ final class ExpoChannel
             ExpoEnvelope::make($tokens, $message)
         );
 
-        if ($response->failure) {
-            $this->dispatchFailedEvents($notifiable, $notification, $response->errors);
+        if ($response->isFailure()) {
+            $this->dispatchFailedEvents($notifiable, $notification, $response->errors());
+        } elseif ($response->isFatal()) {
+            throw CouldNotSendNotification::serviceRespondedWithAnError($response->message());
         }
     }
 

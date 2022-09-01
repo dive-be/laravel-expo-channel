@@ -9,6 +9,7 @@ use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Testing\Fakes\EventFake;
+use NotificationChannels\Expo\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Expo\ExpoChannel;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
@@ -48,6 +49,17 @@ final class ChannelTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_if_the_service_responds_with_an_unexpected_error()
+    {
+        $this->expectException(CouldNotSendNotification::class);
+        $this->expectExceptionMessage('Expo responded with an error: Something went wrong.');
+
+        $this->client->bail('Something went wrong.');
+
+        $this->channel->send(new Customer(), new FoodWasDelivered());
+    }
+
+    /** @test */
     public function it_dispatches_failed_events_when_something_goes_wrong()
     {
         $notifiable = new FraudulentCustomer();
@@ -83,6 +95,24 @@ final class ChannelTest extends TestCase
 
         $this->client->assertNothingSent();
     }
+
+    /** @test */
+    public function it_throws_if_the_notification_doesnt_provide_a_message()
+    {
+        $this->expectException(CouldNotSendNotification::class);
+        $this->expectExceptionMessage('Notification is missing the toExpo method.');
+
+        $this->channel->send(new Customer(), new CarHasCrashed());
+    }
+
+    /** @test */
+    public function it_throws_if_the_notifiable_is_invalid()
+    {
+        $this->expectException(CouldNotSendNotification::class);
+        $this->expectExceptionMessage('You must provide an instance of Notifiable.');
+
+        $this->channel->send(new Guest(), new FoodWasDelivered());
+    }
 }
 
 final class FoodWasDelivered extends Notification
@@ -94,6 +124,10 @@ final class FoodWasDelivered extends Notification
             ->playSound();
     }
 }
+
+final class CarHasCrashed extends Notification {}
+
+final class Guest {}
 
 final class Customer
 {
