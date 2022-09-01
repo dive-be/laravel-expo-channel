@@ -187,7 +187,7 @@ final class HandleFailedExpoNotifications
 {
     public function handle(NotificationFailed $event)
     {
-        if ($event->channel !== ExpoChannel::NAME) return;
+        if ($event->channel !== 'expo') return;
         
         /** @var ExpoError $error */
         $error = $event->data;
