@@ -73,4 +73,12 @@ final class ExpoPushTokenTest extends TestCase
         $this->assertSame($value, $token->asString());
         $this->assertSame($value, (string) $token);
     }
+
+    /** @test */
+    public function it_is_json_serializable()
+    {
+        $token = ExpoPushToken::make($value = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]');
+
+        $this->assertSame("\"{$value}\"", json_encode($token));
+    }
 }

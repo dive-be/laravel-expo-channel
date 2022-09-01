@@ -6,10 +6,11 @@ use Dive\Utils\Makeable;
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
+use JsonSerializable;
 use Stringable;
 use UnexpectedValueException;
 
-final class ExpoPushToken implements Castable, Stringable
+final class ExpoPushToken implements Castable, JsonSerializable, Stringable
 {
     use Makeable;
 
@@ -79,6 +80,14 @@ final class ExpoPushToken implements Castable, Stringable
         }
 
         return $other === $this->asString();
+    }
+
+    /**
+     * Convert the ExpoPushToken instance to its JSON representation.
+     */
+    public function jsonSerialize(): string
+    {
+        return $this->asString();
     }
 
     /**
