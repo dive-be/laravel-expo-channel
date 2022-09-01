@@ -95,15 +95,13 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     {
         $errors = [];
 
-        for ($i = 0; $i < count($tickets); $i++) {
-            $ticket = $tickets[$i];
-
+        foreach ($tickets as $idx => $ticket) {
             if ($ticket['status'] === 'ok') {
                 continue;
             }
 
             $errors[] = ExpoError::make(
-                $tokens[$i],
+                $tokens[$idx],
                 ExpoErrorType::from($ticket['details']['error']),
                 $ticket['message'],
             );
