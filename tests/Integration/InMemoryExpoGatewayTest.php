@@ -9,7 +9,7 @@ use NotificationChannels\Expo\Gateway\ExpoGateway;
 use PHPUnit\Framework\TestCase;
 use Tests\InMemoryExpoGateway;
 
-final class InMemoryExpoClientTest extends TestCase
+final class InMemoryExpoGatewayTest extends TestCase
 {
     use ExpoGatewayContractTests;
 
