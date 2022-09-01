@@ -43,7 +43,7 @@ final class ChannelTest extends TestCase
 
         $this->channel->send($notifiable, $notification);
 
-        $this->client->assertSent($notifiable->routeNotificationForExpo(), $notification->toExpo());
+        $this->client->assertSent($notifiable->routeNotificationForExpo(), $notification->toExpo($notifiable));
         $this->events->assertNotDispatched(NotificationFailed::class);
     }
 
@@ -87,7 +87,7 @@ final class ChannelTest extends TestCase
 
 final class FoodWasDelivered extends Notification
 {
-    public function toExpo(): ExpoMessage
+    public function toExpo($notifiable): ExpoMessage
     {
         return ExpoMessage::create('Food Delivered')
             ->body('Your food was delivered on time!')

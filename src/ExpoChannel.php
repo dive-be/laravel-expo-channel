@@ -7,8 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
-use RuntimeException;
-use UnexpectedValueException;
+use NotificationChannels\Expo\Exceptions\CouldNotSendNotification;
 
 /**
  * @internal
@@ -30,6 +29,8 @@ final class ExpoChannel
 
     /**
      * Send the notification to Expo's Push API.
+     *
+     * @throws CouldNotSendNotification
      */
     public function send(object $notifiable, Notification $notification): void
     {
@@ -62,31 +63,29 @@ final class ExpoChannel
 
     /**
      * Get the message that should be delivered.
+     *
+     * @throws CouldNotSendNotification
      */
     private function getMessage(object $notifiable, Notification $notification): ExpoMessage
     {
         if (! method_exists($notification, 'toExpo')) {
-            throw new RuntimeException('Notification is missing the toExpo method.');
+            throw CouldNotSendNotification::missingMessage();
         }
 
-        $message = $notification->toExpo($notifiable);
-
-        if (! $message instanceof ExpoMessage) {
-            throw new UnexpectedValueException(sprintf('toExpo must return an instance of %s', ExpoMessage::class));
-        }
-
-        return $message;
+        return $notification->toExpo($notifiable);
     }
 
     /**
      * Get the recipients that the message should be delivered to.
      *
      * @return array<int, ExpoPushToken>
+     *
+     * @throws CouldNotSendNotification
      */
     private function getTokens(object $notifiable, Notification $notification): array
     {
         if (! method_exists($notifiable, 'routeNotificationFor')) {
-            throw new RuntimeException('You must provide an instance of Notifiable.');
+            throw CouldNotSendNotification::invalidNotifiable();
         }
 
         $tokens = $notifiable->routeNotificationFor(self::NAME, $notification);

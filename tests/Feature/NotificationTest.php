@@ -64,7 +64,7 @@ final class User extends Authenticatable
 
 final class PartnerHasReplied extends Notification
 {
-    public function toExpo(): ExpoMessage
+    public function toExpo($notifiable): ExpoMessage
     {
         return ExpoMessage::create('New message', 'I hate you.');
     }
