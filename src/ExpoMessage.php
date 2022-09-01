@@ -245,7 +245,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
      *
      * @see ExpoMessage::$expiration
      */
-    public function expiresIn(DateTimeInterface|int $value): self
+    public function expiresAt(DateTimeInterface|int $value): self
     {
         if ($value instanceof DateTimeInterface) {
             $value = $value->getTimestamp();
