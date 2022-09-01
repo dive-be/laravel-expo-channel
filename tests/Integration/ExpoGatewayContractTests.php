@@ -2,10 +2,10 @@
 
 namespace Tests\Integration;
 
-use NotificationChannels\Expo\ExpoGateway;
-use NotificationChannels\Expo\ExpoEnvelope;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
+use NotificationChannels\Expo\Gateway\ExpoEnvelope;
+use NotificationChannels\Expo\Gateway\ExpoGateway;
 
 trait ExpoGatewayContractTests
 {

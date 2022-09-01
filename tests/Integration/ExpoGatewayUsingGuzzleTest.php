@@ -2,8 +2,8 @@
 
 namespace Tests\Integration;
 
-use NotificationChannels\Expo\ExpoGateway;
-use NotificationChannels\Expo\ExpoGatewayUsingGuzzle;
+use NotificationChannels\Expo\Gateway\ExpoGateway;
+use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use PHPUnit\Framework\TestCase;
 
 /**

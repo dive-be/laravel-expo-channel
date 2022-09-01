@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Gateway;
 
 use Dive\Enum\Assertable;
 
@@ -10,6 +10,8 @@ use Dive\Enum\Assertable;
  * @method bool isMessageRateExceeded()
  * @method bool isMismatchSenderId()
  * @method bool isInvalidCredentials()
+ *
+ * @internal
  */
 enum ExpoErrorType: string
 {

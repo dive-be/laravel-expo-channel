@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Gateway;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -97,7 +97,7 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
     /**
      * Get an array of potential errors responded by the service.
      *
-     * @param $tokens array<int, ExpoPushToken>
+     * @param $tokens array<int, \NotificationChannels\Expo\ExpoPushToken>
      *
      * @return array<int, ExpoError>
      */

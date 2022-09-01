@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
+use NotificationChannels\Expo\ExpoPushToken;
 
 final class AsExpoPushToken implements CastsAttributes
 {

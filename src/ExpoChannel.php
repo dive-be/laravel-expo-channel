@@ -8,6 +8,8 @@ use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
 use NotificationChannels\Expo\Exceptions\CouldNotSendNotification;
+use NotificationChannels\Expo\Gateway\ExpoEnvelope;
+use NotificationChannels\Expo\Gateway\ExpoGateway;
 
 /**
  * @internal

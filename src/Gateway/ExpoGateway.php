@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Gateway;
 
 /**
  * @internal

@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Validation;
 
 use Dive\Utils\Makeable;
 use Illuminate\Contracts\Validation\InvokableRule;
+use NotificationChannels\Expo\ExpoPushToken;
 use UnexpectedValueException;
 
 final class ExpoPushTokenRule implements InvokableRule

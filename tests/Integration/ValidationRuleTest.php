@@ -6,7 +6,7 @@ use Illuminate\Translation\ArrayLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
-use NotificationChannels\Expo\ExpoPushTokenRule;
+use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
 use PHPUnit\Framework\TestCase;
 use Tests\ExpoTokensDataset;
 

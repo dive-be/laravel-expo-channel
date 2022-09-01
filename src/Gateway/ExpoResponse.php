@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Gateway;
 
 /**
  * @internal
@@ -13,8 +13,6 @@ final class ExpoResponse
 
     /**
      * Create a new ExpoResponse instance.
-     *
-     * @param $errors array<int, ExpoError>
      */
     private function __construct(
         private readonly string $type,

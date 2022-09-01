@@ -8,9 +8,9 @@ use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Event;
-use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
+use NotificationChannels\Expo\Gateway\ExpoError;
 use Tests\FeatureTest;
 use Tests\InMemoryExpoGateway;
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use NotificationChannels\Expo\ExpoResponse;
+use NotificationChannels\Expo\Gateway\ExpoResponse;
 use PHPUnit\Framework\TestCase;
 
 final class ExpoResponseTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use NotificationChannels\Expo\ExpoErrorType;
+use NotificationChannels\Expo\Gateway\ExpoErrorType;
 use PHPUnit\Framework\TestCase;
 
 final class ExpoErrorTypeTest extends TestCase

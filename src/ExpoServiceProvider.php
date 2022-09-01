@@ -7,6 +7,8 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\ServiceProvider;
+use NotificationChannels\Expo\Gateway\ExpoGateway;
+use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use RuntimeException;
 
 final class ExpoServiceProvider extends ServiceProvider

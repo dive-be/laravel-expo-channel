@@ -2,9 +2,9 @@
 
 namespace Tests\Integration;
 
-use NotificationChannels\Expo\ExpoEnvelope;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
+use NotificationChannels\Expo\Gateway\ExpoEnvelope;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 

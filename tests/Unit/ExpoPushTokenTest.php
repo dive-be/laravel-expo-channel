@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use NotificationChannels\Expo\AsExpoPushToken;
+use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
-use NotificationChannels\Expo\ExpoPushTokenRule;
+use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
 use PHPUnit\Framework\TestCase;
 use Tests\ExpoTokensDataset;
 use UnexpectedValueException;

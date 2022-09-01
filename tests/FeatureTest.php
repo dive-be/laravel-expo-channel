@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use NotificationChannels\Expo\ExpoGateway;
 use NotificationChannels\Expo\ExpoServiceProvider;
+use NotificationChannels\Expo\Gateway\ExpoGateway;
 use Orchestra\Testbench\TestCase;
 
 abstract class FeatureTest extends TestCase

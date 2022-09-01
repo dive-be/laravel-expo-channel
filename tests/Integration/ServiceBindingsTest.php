@@ -4,9 +4,9 @@ namespace Tests\Integration;
 
 use Illuminate\Notifications\ChannelManager;
 use NotificationChannels\Expo\ExpoChannel;
-use NotificationChannels\Expo\ExpoGateway;
-use NotificationChannels\Expo\ExpoGatewayUsingGuzzle;
 use NotificationChannels\Expo\ExpoServiceProvider;
+use NotificationChannels\Expo\Gateway\ExpoGateway;
+use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;

@@ -3,10 +3,10 @@
 namespace Tests\Integration;
 
 use Illuminate\Database\Eloquent\Model;
-use NotificationChannels\Expo\AsExpoPushToken;
+use InvalidArgumentException;
+use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
-use InvalidArgumentException;
 use UnexpectedValueException;
 
 final class CastingTest extends TestCase

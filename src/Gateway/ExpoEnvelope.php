@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo;
+namespace NotificationChannels\Expo\Gateway;
 
 use Dive\Utils\Makeable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use NotificationChannels\Expo\ExpoMessage;
+use NotificationChannels\Expo\ExpoPushToken;
 use UnexpectedValueException;
 
 /**
