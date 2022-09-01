@@ -9,7 +9,7 @@ use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\ServiceProvider;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
-use RuntimeException;
+use InvalidArgumentException;
 
 final class ExpoServiceProvider extends ServiceProvider
 {
@@ -48,7 +48,7 @@ final class ExpoServiceProvider extends ServiceProvider
         $accessToken = $config->get('services.expo.access_token');
 
         if (! is_null($accessToken) && ! is_string($accessToken)) {
-            throw new RuntimeException('The provided access token is not a valid Expo Access Token.');
+            throw new InvalidArgumentException('The provided access token is not a valid Expo Access Token.');
         }
 
         return new ExpoGatewayUsingGuzzle($accessToken);

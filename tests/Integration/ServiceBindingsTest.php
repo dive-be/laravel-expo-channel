@@ -9,7 +9,7 @@ use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
+use InvalidArgumentException;
 
 final class ServiceBindingsTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class ServiceBindingsTest extends TestCase
     /** @test */
     public function it_throws_if_an_invalid_access_token_is_passed_to_the_gateway()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The provided access token is not a valid Expo Access Token.');
 
         $app = $this->createApplication();
