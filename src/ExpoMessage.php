@@ -261,6 +261,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     }
 
     /**
+     * @see ExpoMessage::ttl()
+     */
+    public function expiresIn(int $value): self
+    {
+        return $this->ttl($value);
+    }
+
+    /**
      * Set the delivery priority of the message to 'high'.
      *
      * @throws UnexpectedValueException

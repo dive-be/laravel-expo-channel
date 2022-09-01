@@ -224,11 +224,8 @@ The `ExpoMessage` class contains the following methods for defining the message 
 - [Category ID](#category-id)
 - [Channel ID (Android)](#channel-id-android)
 - [JSON data](#json-data)
-- [Default priority](#default-priority)
 - [Expiration](#expiration)
-- [High priority](#high-priority)
 - [Mutable content (iOS)](#mutable-content-ios)
-- [Normal priority](#normal-priority)
 - [Notification sound (iOS)](#notification-sound-ios)
 - [Priority](#priority)
 - [Subtitle (iOS)](#subtitle-ios)
@@ -252,6 +249,7 @@ Sets the message body to display in the notification.
 
 ```php
 body(string $value)
+text(string $value)
 ```
 
 > **Note**
@@ -290,17 +288,6 @@ data(Arrayable|Jsonable|JsonSerializable|array $value)
 > **Warning**
 > We're compressing JSON payloads that exceed 1 KiB using Gzip. While you could technically send more than 4 KiB of data, this is not recommended.
 
-### Default priority
-
-Sets the delivery priority of the message to `default`.
-
-```php
-default()
-```
-
-> **Note**
-> Achieves the same result as `priority('default')`
-
 ### Expiration
 
 Sets the expiration time of the message. Same effect as TTL.
@@ -315,17 +302,6 @@ expiresAt(DateTimeInterface|int $value)
 > **Note**
 > The value must be in the future.
 
-### High priority
-
-Sets the delivery priority of the message to 'high'.
-
-```php
-high()
-```
-
-> **Note**
-> Achieves the same result as `priority('high')`
-
 ### Mutable content (iOS)
 
 Sets whether the notification can be intercepted by the client app.
@@ -333,17 +309,6 @@ Sets whether the notification can be intercepted by the client app.
 ```php
 mutableContent(bool $value = true)
 ```
-
-### Normal priority
-
-Sets the delivery priority of the message to `normal`.
-
-```php
-normal()
-```
-
-> **Note**
-> Achieves the same result as `priority('normal')`
 
 ### Notification sound (iOS)
 
@@ -362,6 +327,9 @@ Sets the delivery priority of the message.
 
 ```php
 priority(string $value)
+default()
+normal()
+high()
 ```
 
 > **Note**
@@ -377,17 +345,6 @@ subtitle(string $value)
 
 > **Note**
 > The value must not be empty.
-
-### Text
-
-See [body](#body).
-
-```php
-text(string $value)
-```
-
-> **Note**
-> Alias for `body`.
 
 ### Title
 
@@ -406,6 +363,7 @@ Set the number of seconds for which the message may be kept around for redeliver
 
 ```php
 ttl(int $value)
+expiresIn(int $value)
 ```
 
 > **Warning**

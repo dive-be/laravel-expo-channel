@@ -262,11 +262,14 @@ final class ExpoMessageTest extends TestCase
     /** @test */
     public function it_can_set_a_ttl()
     {
-        $msg = ExpoMessage::create()->ttl($value = 60);
+        $msgA = ExpoMessage::create()->ttl(60);
+        $msgB = ExpoMessage::create()->expiresIn(45);
 
-        ['ttl' => $ttl] = $msg->toArray();
+        ['ttl' => $ttlA] = $msgA->toArray();
+        ['ttl' => $ttlB] = $msgB->toArray();
 
-        $this->assertSame($value, $ttl);
+        $this->assertSame(60, $ttlA);
+        $this->assertSame(45, $ttlB);
     }
 
     /** @test */
