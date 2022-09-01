@@ -4,6 +4,7 @@ namespace NotificationChannels\Expo;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -117,6 +118,6 @@ final class ExpoClientUsingGuzzle implements ExpoClient
     {
         $body = json_decode((string) $response->getBody(), true);
 
-        return is_array($body) && array_key_exists('data', $body) ? $body['data'] : [];
+        return Arr::get($body, 'data', []); // @phpstan-ignore-line
     }
 }
