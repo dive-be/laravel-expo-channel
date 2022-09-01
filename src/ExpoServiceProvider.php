@@ -17,7 +17,7 @@ final class ExpoServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->afterResolving(ChannelManager::class, $this->extendManager(...));
-        $this->app->bind(ExpoClient::class, $this->createExpoClient(...));
+        $this->app->bind(ExpoGateway::class, $this->createExpoGateway(...));
         $this->app->singleton(ExpoChannel::class, $this->createExpoChannel(...));
     }
 
@@ -26,19 +26,19 @@ final class ExpoServiceProvider extends ServiceProvider
      */
     private function createExpoChannel(Application $app): ExpoChannel
     {
-        /** @var ExpoClient $client */
-        $client = $app->make(ExpoClient::class);
+        /** @var ExpoGateway $gateway */
+        $gateway = $app->make(ExpoGateway::class);
 
         /** @var Dispatcher $events */
         $events = $app->make(Dispatcher::class);
 
-        return new ExpoChannel($client, $events);
+        return new ExpoChannel($gateway, $events);
     }
 
     /**
-     * Create a new ExpoClient instance.
+     * Create a new ExpoGateway instance.
      */
-    private function createExpoClient(Application $app): ExpoClientUsingGuzzle
+    private function createExpoGateway(Application $app): ExpoGatewayUsingGuzzle
     {
         /** @var Repository $config */
         $config = $app->make(Repository::class);
@@ -49,7 +49,7 @@ final class ExpoServiceProvider extends ServiceProvider
             throw new RuntimeException('The provided access token is not a valid Expo Access Token.');
         }
 
-        return new ExpoClientUsingGuzzle($accessToken);
+        return new ExpoGatewayUsingGuzzle($accessToken);
     }
 
     /**

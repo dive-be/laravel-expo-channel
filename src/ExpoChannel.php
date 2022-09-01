@@ -23,7 +23,7 @@ final class ExpoChannel
      * Create a new channel instance.
      */
     public function __construct(
-        private readonly ExpoClient $client,
+        private readonly ExpoGateway $gateway,
         private readonly Dispatcher $events,
     ) {}
 
@@ -42,7 +42,7 @@ final class ExpoChannel
 
         $message = $this->getMessage($notifiable, $notification);
 
-        $response = $this->client->sendPushNotifications(
+        $response = $this->gateway->sendPushNotifications(
             ExpoEnvelope::make($tokens, $message)
         );
 

@@ -2,16 +2,16 @@
 
 namespace Tests\Integration;
 
-use NotificationChannels\Expo\ExpoClient;
+use NotificationChannels\Expo\ExpoGateway;
 use NotificationChannels\Expo\ExpoEnvelope;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
-use Tests\InMemoryExpoClient;
+use Tests\InMemoryExpoGateway;
 
 final class InMemoryExpoClientTest extends TestCase
 {
-    use ExpoClientContractTests;
+    use ExpoGatewayContractTests;
 
     /**
      * It is practically impossible (need physical device) to test the happy path for the real service.
@@ -22,10 +22,10 @@ final class InMemoryExpoClientTest extends TestCase
     public function it_responds_with_ok_when_all_tokens_are_valid()
     {
         $envelope = ExpoEnvelope::make([
-            ExpoPushToken::make(InMemoryExpoClient::VALID_TOKEN),
+            ExpoPushToken::make(InMemoryExpoGateway::VALID_TOKEN),
         ], ExpoMessage::create('John', 'Cena'));
 
-        $response = $this->client()->sendPushNotifications($envelope);
+        $response = $this->gateway()->sendPushNotifications($envelope);
 
         $this->assertTrue($response->isOk());
     }
@@ -34,18 +34,18 @@ final class InMemoryExpoClientTest extends TestCase
     public function it_responds_with_failure_even_if_there_are_valid_ones_among_the_failed()
     {
         $envelope = ExpoEnvelope::make([
-            ExpoPushToken::make(InMemoryExpoClient::VALID_TOKEN),
+            ExpoPushToken::make(InMemoryExpoGateway::VALID_TOKEN),
             ExpoPushToken::make('ExpoPushToken[Wi54gvIrap4SDW4Dsh6b0h]'),
         ], ExpoMessage::create('John', 'Cena'));
 
-        $response = $this->client()->sendPushNotifications($envelope);
+        $response = $this->gateway()->sendPushNotifications($envelope);
 
         $this->assertTrue($response->isFailure());
         $this->assertCount(1, $response->errors());
     }
 
-    protected function client(): ExpoClient
+    protected function gateway(): ExpoGateway
     {
-        return new InMemoryExpoClient();
+        return new InMemoryExpoGateway();
     }
 }

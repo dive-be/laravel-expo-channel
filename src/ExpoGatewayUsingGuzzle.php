@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * @internal
  */
-final class ExpoClientUsingGuzzle implements ExpoClient
+final class ExpoGatewayUsingGuzzle implements ExpoGateway
 {
     /**
      * Expo's Push API URL.

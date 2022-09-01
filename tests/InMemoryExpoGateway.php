@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use NotificationChannels\Expo\ExpoClient;
+use NotificationChannels\Expo\ExpoGateway;
 use NotificationChannels\Expo\ExpoEnvelope;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoErrorType;
@@ -11,7 +11,7 @@ use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\ExpoResponse;
 use PHPUnit\Framework\Assert;
 
-final class InMemoryExpoClient implements ExpoClient
+final class InMemoryExpoGateway implements ExpoGateway
 {
     public const VALID_TOKEN = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]';
 

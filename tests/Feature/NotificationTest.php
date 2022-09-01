@@ -12,7 +12,7 @@ use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use Tests\FeatureTest;
-use Tests\InMemoryExpoClient;
+use Tests\InMemoryExpoGateway;
 
 final class NotificationTest extends FeatureTest
 {
@@ -32,7 +32,7 @@ final class NotificationTest extends FeatureTest
     {
         Event::fake(NotificationFailed::class);
 
-        $this->patchJson('notification/send', ['token' => InMemoryExpoClient::class]);
+        $this->patchJson('notification/send', ['token' => InMemoryExpoGateway::class]);
 
         Event::assertNotDispatched(NotificationFailed::class);
     }

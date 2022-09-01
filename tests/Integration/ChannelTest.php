@@ -15,13 +15,13 @@ use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\TestCase;
-use Tests\InMemoryExpoClient;
+use Tests\InMemoryExpoGateway;
 
 final class ChannelTest extends TestCase
 {
     private ExpoChannel $channel;
 
-    private InMemoryExpoClient $client;
+    private InMemoryExpoGateway $gateway;
 
     private EventFake $events;
 
@@ -29,9 +29,9 @@ final class ChannelTest extends TestCase
     {
         parent::setUp();
 
-        $this->client = new InMemoryExpoClient();
+        $this->gateway = new InMemoryExpoGateway();
         $this->events = new EventFake(new NullDispatcher(new Dispatcher())) ;
-        $this->channel = new ExpoChannel($this->client, $this->events);
+        $this->channel = new ExpoChannel($this->gateway, $this->events);
     }
 
     /** @test */
@@ -40,11 +40,11 @@ final class ChannelTest extends TestCase
         $notifiable = new Customer();
         $notification = new FoodWasDelivered();
 
-        $this->client->assertNothingSent();
+        $this->gateway->assertNothingSent();
 
         $this->channel->send($notifiable, $notification);
 
-        $this->client->assertSent($notifiable->routeNotificationForExpo(), $notification->toExpo($notifiable));
+        $this->gateway->assertSent($notifiable->routeNotificationForExpo(), $notification->toExpo($notifiable));
         $this->events->assertNotDispatched(NotificationFailed::class);
     }
 
@@ -54,7 +54,7 @@ final class ChannelTest extends TestCase
         $this->expectException(CouldNotSendNotification::class);
         $this->expectExceptionMessage('Expo responded with an error: Something went wrong.');
 
-        $this->client->bail('Something went wrong.');
+        $this->gateway->bail('Something went wrong.');
 
         $this->channel->send(new Customer(), new FoodWasDelivered());
     }
@@ -82,7 +82,7 @@ final class ChannelTest extends TestCase
 
         $this->channel->send($notifiable, $notification);
 
-        $this->client->assertNothingSent();
+        $this->gateway->assertNothingSent();
     }
 
     /** @test */
@@ -93,7 +93,7 @@ final class ChannelTest extends TestCase
 
         $this->channel->send($notifiable, $notification);
 
-        $this->client->assertNothingSent();
+        $this->gateway->assertNothingSent();
     }
 
     /** @test */
@@ -135,7 +135,7 @@ final class Customer
 
     public function routeNotificationForExpo(): ExpoPushToken
     {
-        return ExpoPushToken::make(InMemoryExpoClient::VALID_TOKEN);
+        return ExpoPushToken::make(InMemoryExpoGateway::VALID_TOKEN);
     }
 }
 

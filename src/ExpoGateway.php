@@ -2,7 +2,10 @@
 
 namespace NotificationChannels\Expo;
 
-interface ExpoClient
+/**
+ * @internal
+ */
+interface ExpoGateway
 {
     /**
      * Send the notifications to Expo's Push Service.

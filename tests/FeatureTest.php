@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use NotificationChannels\Expo\ExpoClient;
+use NotificationChannels\Expo\ExpoGateway;
 use NotificationChannels\Expo\ExpoServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -10,7 +10,7 @@ abstract class FeatureTest extends TestCase
 {
     protected function defineEnvironment($app): void
     {
-        $app->bind(ExpoClient::class, InMemoryExpoClient::class);
+        $app->bind(ExpoGateway::class, InMemoryExpoGateway::class);
     }
 
     protected function getPackageProviders($app): array

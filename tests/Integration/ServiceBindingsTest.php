@@ -4,8 +4,8 @@ namespace Tests\Integration;
 
 use Illuminate\Notifications\ChannelManager;
 use NotificationChannels\Expo\ExpoChannel;
-use NotificationChannels\Expo\ExpoClient;
-use NotificationChannels\Expo\ExpoClientUsingGuzzle;
+use NotificationChannels\Expo\ExpoGateway;
+use NotificationChannels\Expo\ExpoGatewayUsingGuzzle;
 use NotificationChannels\Expo\ExpoServiceProvider;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 use PHPUnit\Framework\TestCase;
@@ -16,19 +16,19 @@ final class ServiceBindingsTest extends TestCase
     use CreatesApplication;
 
     /** @test */
-    public function it_binds_the_expo_guzzle_client_to_the_container()
+    public function it_binds_the_expo_guzzle_gateway_to_the_container()
     {
         $app = $this->createApplication();
         $app->register(ExpoServiceProvider::class);
 
-        $client = $app->make(ExpoClient::class);
+        $gateway = $app->make(ExpoGateway::class);
 
-        $this->assertInstanceOf(ExpoClientUsingGuzzle::class, $client);
-        $this->assertNotSame($client, $app->make(ExpoClient::class));
+        $this->assertInstanceOf(ExpoGatewayUsingGuzzle::class, $gateway);
+        $this->assertNotSame($gateway, $app->make(ExpoGateway::class));
     }
 
     /** @test */
-    public function it_throws_if_an_invalid_access_token_is_passed_to_the_client()
+    public function it_throws_if_an_invalid_access_token_is_passed_to_the_gateway()
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('The provided access token is not a valid Expo Access Token.');
@@ -38,7 +38,7 @@ final class ServiceBindingsTest extends TestCase
 
         $app['config']['services.expo.access_token'] = 123456789;
 
-        $app->make(ExpoClient::class);
+        $app->make(ExpoGateway::class);
     }
 
     /** @test */
