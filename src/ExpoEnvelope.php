@@ -23,7 +23,7 @@ final class ExpoEnvelope implements Arrayable, Jsonable
         public readonly array $recipients,
         public readonly ExpoMessage $message,
     ) {
-        if (! count($this->recipients)) {
+        if (! count($recipients)) {
             throw new UnexpectedValueException('There must be at least 1 recipient.');
         }
     }
