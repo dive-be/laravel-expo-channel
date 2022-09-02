@@ -7,6 +7,7 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoErrorType;
+use NotificationChannels\Expo\ExpoPushToken;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -99,7 +100,7 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
     /**
      * Get an array of potential errors responded by the service.
      *
-     * @param $tokens array<int, \NotificationChannels\Expo\ExpoPushToken>
+     * @param $tokens array<int, ExpoPushToken>
      *
      * @return array<int, ExpoError>
      */
@@ -108,15 +109,9 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
         $errors = [];
 
         foreach ($tickets as $idx => $ticket) {
-            if ($ticket['status'] === 'ok') {
-                continue;
+            if (Arr::get($ticket, 'status') === 'error') {
+                $errors[] = $this->makeError($tokens[$idx], $ticket);
             }
-
-            $errors[] = ExpoError::make(
-                $tokens[$idx],
-                ExpoErrorType::from($ticket['details']['error']),
-                $ticket['message'],
-            );
         }
 
         return $errors;
@@ -130,5 +125,20 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
         $body = json_decode((string) $response->getBody(), true);
 
         return Arr::get($body, 'data', []); // @phpstan-ignore-line
+    }
+
+    /**
+     * Create and return an ExpoError object representing a failed delivery.
+     */
+    private function makeError(ExpoPushToken $token, array $ticket): ExpoError
+    {
+        /** @var string $type */
+        $type = Arr::get($ticket, 'details.error');
+        $type = ExpoErrorType::from($type);
+
+        /** @var string $message */
+        $message = Arr::get($ticket, 'message');
+
+        return ExpoError::make($type, $token, $message);
     }
 }

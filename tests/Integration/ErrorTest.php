@@ -13,8 +13,8 @@ final class ErrorTest extends TestCase
     public function it_can_be_instantiated()
     {
         $error = ExpoError::make(
-            ExpoPushToken::make('ExpoPushToken[abcdefgh]'),
             ExpoErrorType::InvalidCredentials,
+            ExpoPushToken::make('ExpoPushToken[abcdefgh]'),
             'The credentials are invalid'
         );
 

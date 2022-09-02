@@ -60,8 +60,8 @@ final class InMemoryExpoGateway implements ExpoGateway
     private function newDeviceError(ExpoPushToken $token): ExpoError
     {
         return ExpoError::make(
-            $token,
             ExpoErrorType::DeviceNotRegistered,
+            $token,
             "{$token} is not a registered push notification recipient"
         );
     }
