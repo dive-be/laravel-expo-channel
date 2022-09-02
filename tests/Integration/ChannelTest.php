@@ -11,9 +11,9 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Testing\Fakes\EventFake;
 use NotificationChannels\Expo\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Expo\ExpoChannel;
+use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
-use NotificationChannels\Expo\Gateway\ExpoError;
 use PHPUnit\Framework\TestCase;
 use Tests\InMemoryExpoGateway;
 

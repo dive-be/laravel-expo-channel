@@ -11,9 +11,6 @@ use NotificationChannels\Expo\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Expo\Gateway\ExpoEnvelope;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 
-/**
- * @internal
- */
 final class ExpoChannel
 {
     /**

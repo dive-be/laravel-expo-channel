@@ -22,7 +22,7 @@ final class ExpoResponse
     /**
      * Create a "failed" ExpoResponse instance.
      *
-     * @param $errors array<int, ExpoError>
+     * @param $errors array<int, \NotificationChannels\Expo\ExpoError>
      */
     public static function failed(array $errors): self
     {

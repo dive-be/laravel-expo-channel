@@ -2,11 +2,11 @@
 
 namespace Tests;
 
+use NotificationChannels\Expo\ExpoError;
+use NotificationChannels\Expo\ExpoErrorType;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\Gateway\ExpoEnvelope;
-use NotificationChannels\Expo\Gateway\ExpoError;
-use NotificationChannels\Expo\Gateway\ExpoErrorType;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoResponse;
 use PHPUnit\Framework\Assert;

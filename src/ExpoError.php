@@ -1,13 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace NotificationChannels\Expo\Gateway;
+namespace NotificationChannels\Expo;
 
 use Dive\Utils\Makeable;
-use NotificationChannels\Expo\ExpoPushToken;
 
-/**
- * @internal
- */
 final class ExpoError
 {
     use Makeable;

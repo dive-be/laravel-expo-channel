@@ -2,9 +2,9 @@
 
 namespace Tests\Integration;
 
+use NotificationChannels\Expo\ExpoError;
+use NotificationChannels\Expo\ExpoErrorType;
 use NotificationChannels\Expo\ExpoPushToken;
-use NotificationChannels\Expo\Gateway\ExpoError;
-use NotificationChannels\Expo\Gateway\ExpoErrorType;
 use PHPUnit\Framework\TestCase;
 
 final class ErrorTest extends TestCase

@@ -4,9 +4,9 @@ namespace NotificationChannels\Expo;
 
 use Dive\Utils\Makeable;
 use Illuminate\Contracts\Database\Eloquent\Castable;
+use JsonSerializable;
 use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
-use JsonSerializable;
 use Stringable;
 use UnexpectedValueException;
 

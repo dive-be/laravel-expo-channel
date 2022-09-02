@@ -3,13 +3,13 @@
 namespace Tests\Integration;
 
 use Illuminate\Notifications\ChannelManager;
+use InvalidArgumentException;
 use NotificationChannels\Expo\ExpoChannel;
 use NotificationChannels\Expo\ExpoServiceProvider;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 use PHPUnit\Framework\TestCase;
-use InvalidArgumentException;
 
 final class ServiceBindingsTest extends TestCase
 {

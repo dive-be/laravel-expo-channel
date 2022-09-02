@@ -5,6 +5,8 @@ namespace NotificationChannels\Expo\Gateway;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
+use NotificationChannels\Expo\ExpoError;
+use NotificationChannels\Expo\ExpoErrorType;
 use Psr\Http\Message\ResponseInterface;
 
 /**
