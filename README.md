@@ -208,8 +208,8 @@ The `NotificationFailed::$data` property will contain an instance of `ExpoError`
 final class ExpoError
 {
     private function __construct(
-        public readonly ExpoPushToken $token,
         public readonly ExpoErrorType $type,
+        public readonly ExpoPushToken $token,
         public readonly string $message,
     ) {}
 }
@@ -286,7 +286,7 @@ data(Arrayable|Jsonable|JsonSerializable|array $value)
 ```
 
 > **Warning**
-> We're compressing JSON payloads that exceed 1 KiB using Gzip. While you could technically send more than 4 KiB of data, this is not recommended.
+> We're compressing JSON payloads that exceed 1 KiB using Gzip (if `ext-zlib` is available). While you could technically send more than 4 KiB of data, this is not recommended.
 
 ### Expiration
 
