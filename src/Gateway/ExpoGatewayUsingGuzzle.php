@@ -45,15 +45,7 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
      */
     public function __construct(?string $accessToken = null)
     {
-        $this->http = new Client([
-            RequestOptions::HEADERS => array_filter([
-                'Accept' => 'application/json',
-                'Accept-Encoding' => 'gzip, deflate',
-                'Authorization' => is_string($accessToken) ? "Bearer {$accessToken}" : $accessToken,
-                'Content-Type' => 'application/json',
-                'Host' => 'exp.host',
-            ]),
-        ]);
+        $this->http = new Client([RequestOptions::HEADERS => $this->getDefaultHeaders($accessToken)]);
     }
 
     /**
@@ -99,6 +91,25 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
         }
 
         return [['Content-Encoding' => 'gzip'], $encoded];
+    }
+
+    /**
+     * Get the default headers to be used by the HTTP client.
+     */
+    private function getDefaultHeaders(?string $accessToken): array
+    {
+        $headers = [
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip, deflate',
+            'Content-Type' => 'application/json',
+            'Host' => 'exp.host',
+        ];
+
+        if (is_string($accessToken)) {
+            $headers['Authorization'] = "Bearer {$accessToken}";
+        }
+
+        return $headers;
     }
 
     /**
