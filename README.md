@@ -110,7 +110,7 @@ final class User extends Authenticatable
 }
 ```
 
-> **Warning** No notifications will be sent in case of `null`
+> **Warning** No notifications will be sent in case of `null`.
 
 > **Note** More info regarding the model cast can be found [here](#model-casting).
 
@@ -134,7 +134,7 @@ final class User extends Authenticatable
 }
 ```
 
-> **Warning** No notifications will be sent in case of an empty `Collection`
+> **Warning** No notifications will be sent in case of an empty `Collection`.
 
 ### Sending
 
