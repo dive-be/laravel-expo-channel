@@ -84,6 +84,10 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
      */
     private function compressUsingGzip(string $payload): array
     {
+        if (! extension_loaded('zlib')) {
+            return [[], $payload];
+        }
+
         if (mb_strlen($payload) / self::KIBIBYTE <= self::THRESHOLD) {
             return [[], $payload];
         }
