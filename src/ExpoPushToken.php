@@ -55,7 +55,7 @@ final class ExpoPushToken implements Castable, JsonSerializable, Stringable
     }
 
     /**
-     * Get the rule to validate an expo push token.
+     * Get the rule to validate an ExpoPushToken.
      */
     public static function rule(): ExpoPushTokenRule
     {
