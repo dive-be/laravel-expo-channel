@@ -227,8 +227,6 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the delivery priority of the message to 'default'.
      *
-     * @throws UnexpectedValueException
-     *
      * @see ExpoMessage::$priority
      */
     public function default(): self
@@ -271,8 +269,6 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the delivery priority of the message to 'high'.
      *
-     * @throws UnexpectedValueException
-     *
      * @see ExpoMessage::$priority
      */
     public function high(): self
@@ -296,8 +292,6 @@ final class ExpoMessage implements Arrayable, JsonSerializable
 
     /**
      * Set the delivery priority of the message to 'normal'.
-     *
-     * @throws UnexpectedValueException
      *
      * @see ExpoMessage::$priority
      */
