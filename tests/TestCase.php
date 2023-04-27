@@ -4,9 +4,9 @@ namespace Tests;
 
 use NotificationChannels\Expo\ExpoServiceProvider;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
-use Orchestra\Testbench\TestCase;
+use Orchestra\Testbench\TestCase as TestCaseBase;
 
-abstract class FeatureTest extends TestCase
+abstract class TestCase extends TestCaseBase
 {
     protected function defineEnvironment($app): void
     {

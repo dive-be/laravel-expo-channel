@@ -6,13 +6,14 @@ use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\Gateway\ExpoEnvelope;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
+use PHPUnit\Framework\Attributes\Test;
 
 trait ExpoGatewayContractTests
 {
     abstract protected function gateway(): ExpoGateway;
 
-    /** @test */
-    public function it_responds_with_failure_when_invalid_tokens_are_supplied()
+    #[Test]
+    public function it_responds_with_failure_when_invalid_tokens_are_supplied(): void
     {
         $envelope = ExpoEnvelope::make([
             ExpoPushToken::make('ExpoPushToken[Wi54gvIrap4SDW4Dsh6b0h]'),

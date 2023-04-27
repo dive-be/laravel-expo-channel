@@ -10,10 +10,8 @@ use NotificationChannels\Expo\ExpoErrorType;
 use NotificationChannels\Expo\ExpoPushToken;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * @internal
- */
-final class ExpoGatewayUsingGuzzle implements ExpoGateway
+/** @internal */
+final readonly class ExpoGatewayUsingGuzzle implements ExpoGateway
 {
     /**
      * Expo's Push API URL.
@@ -38,7 +36,7 @@ final class ExpoGatewayUsingGuzzle implements ExpoGateway
     /**
      * The Guzzle HTTP client instance.
      */
-    private readonly Client $http;
+    private Client $http;
 
     /**
      * Create a new ExpoClient instance.

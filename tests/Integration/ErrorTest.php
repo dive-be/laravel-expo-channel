@@ -5,12 +5,13 @@ namespace Tests\Integration;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoErrorType;
 use NotificationChannels\Expo\ExpoPushToken;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class ErrorTest extends TestCase
 {
-    /** @test */
-    public function it_can_be_instantiated()
+    #[Test]
+    public function it_can_be_instantiated(): void
     {
         $error = ExpoError::make(
             ExpoErrorType::InvalidCredentials,

@@ -5,21 +5,22 @@ namespace Tests\Integration;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\Gateway\ExpoEnvelope;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
 final class EnvelopeTest extends TestCase
 {
-    /** @test */
-    public function it_can_make_an_instance()
+    #[Test]
+    public function it_can_make_an_instance(): void
     {
         $envelope = ExpoEnvelope::make($this->recipients(), $this->message());
 
         $this->assertInstanceOf(ExpoEnvelope::class, $envelope);
     }
 
-    /** @test */
-    public function it_doesnt_allow_creation_if_there_are_no_recipients()
+    #[Test]
+    public function it_doesnt_allow_creation_if_there_are_no_recipients(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('There must be at least 1 recipient.');
@@ -27,8 +28,8 @@ final class EnvelopeTest extends TestCase
         ExpoEnvelope::make([], $this->message());
     }
 
-    /** @test */
-    public function it_is_arrayable_and_jsonable()
+    #[Test]
+    public function it_is_arrayable_and_jsonable(): void
     {
         $envelope = ExpoEnvelope::make($this->recipients(), $this->message());
 

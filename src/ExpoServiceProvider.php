@@ -17,9 +17,10 @@ final class ExpoServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->afterResolving(ChannelManager::class, $this->extendManager(...));
         $this->app->bind(ExpoGateway::class, $this->createExpoGateway(...));
         $this->app->singleton(ExpoChannel::class);
+
+        $this->callAfterResolving(ChannelManager::class, $this->extendManager(...));
     }
 
     /**

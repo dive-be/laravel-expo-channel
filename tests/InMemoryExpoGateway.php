@@ -19,12 +19,12 @@ final class InMemoryExpoGateway implements ExpoGateway
 
     private ?string $shouldBail = null;
 
-    public function assertNothingSent()
+    public function assertNothingSent(): void
     {
         Assert::assertNull($this->envelope, 'Push notification was sent unexpectedly.');
     }
 
-    public function assertSent(ExpoPushToken $token, ExpoMessage $message)
+    public function assertSent(ExpoPushToken $token, ExpoMessage $message): void
     {
         Assert::assertNotNull($this->envelope, 'A push notification was not sent');
         Assert::assertContainsEquals($token, $this->envelope->recipients, "A push notification was not sent to {$token}");

@@ -11,7 +11,7 @@ use NotificationChannels\Expo\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Expo\Gateway\ExpoEnvelope;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 
-final class ExpoChannel
+final readonly class ExpoChannel
 {
     /**
      * The channel's name.
@@ -21,10 +21,7 @@ final class ExpoChannel
     /**
      * Create a new channel instance.
      */
-    public function __construct(
-        private readonly ExpoGateway $gateway,
-        private readonly Dispatcher $events,
-    ) {}
+    public function __construct(private ExpoGateway $gateway, private Dispatcher $events) {}
 
     /**
      * Send the notification to Expo's Push API.
@@ -48,7 +45,7 @@ final class ExpoChannel
         if ($response->isFailure()) {
             $this->dispatchFailedEvents($notifiable, $notification, $response->errors());
         } elseif ($response->isFatal()) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response->message());
+            throw CouldNotSendNotification::becauseTheServiceRespondedWithAnError($response->message());
         }
     }
 
@@ -70,7 +67,7 @@ final class ExpoChannel
     private function getMessage(object $notifiable, Notification $notification): ExpoMessage
     {
         if (! method_exists($notification, 'toExpo')) {
-            throw CouldNotSendNotification::missingMessage();
+            throw CouldNotSendNotification::becauseTheMessageIsMissing();
         }
 
         return $notification->toExpo($notifiable);
@@ -86,7 +83,7 @@ final class ExpoChannel
     private function getTokens(object $notifiable, Notification $notification): array
     {
         if (! method_exists($notifiable, 'routeNotificationFor')) {
-            throw CouldNotSendNotification::invalidNotifiable();
+            throw CouldNotSendNotification::becauseNotifiableIsInvalid();
         }
 
         $tokens = $notifiable->routeNotificationFor(self::NAME, $notification);

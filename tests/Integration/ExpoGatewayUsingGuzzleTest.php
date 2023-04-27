@@ -6,9 +6,7 @@ use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group network
- */
+/** @group network */
 final class ExpoGatewayUsingGuzzleTest extends TestCase
 {
     use ExpoGatewayContractTests;

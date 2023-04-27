@@ -3,12 +3,13 @@
 namespace Tests\Unit;
 
 use NotificationChannels\Expo\Gateway\ExpoResponse;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class ExpoResponseTest extends TestCase
 {
-    /** @test */
-    public function it_can_create_a_failure_response()
+    #[Test]
+    public function it_can_create_a_failure_response(): void
     {
         $response = ExpoResponse::failed($errors = ['status' => 500]);
 
@@ -19,8 +20,8 @@ final class ExpoResponseTest extends TestCase
         $this->assertSame('', $response->message());
     }
 
-    /** @test */
-    public function it_can_create_a_fatal_response()
+    #[Test]
+    public function it_can_create_a_fatal_response(): void
     {
         $response = ExpoResponse::fatal($message = 'Something went horribly wrong.');
 
@@ -31,8 +32,8 @@ final class ExpoResponseTest extends TestCase
         $this->assertSame([], $response->errors());
     }
 
-    /** @test */
-    public function it_can_create_an_ok_response()
+    #[Test]
+    public function it_can_create_an_ok_response(): void
     {
         $response = ExpoResponse::ok();
 

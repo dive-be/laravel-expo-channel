@@ -3,12 +3,14 @@
 namespace Tests\Unit;
 
 use NotificationChannels\Expo\ExpoErrorType;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class ExpoErrorTypeTest extends TestCase
 {
-    /** @test */
-    public function it_is_assertable()
+    #[Test]
+    public function it_is_assertable(): void
     {
         $type = ExpoErrorType::MessageTooBig;
 
@@ -16,18 +18,16 @@ final class ExpoErrorTypeTest extends TestCase
         $this->assertFalse($type->isDeviceNotRegistered());
     }
 
-    /**
-     * @dataProvider errors
-     * @test
-     */
-    public function it_can_be_instantiated_using_the_backed_values(string $error)
+    #[DataProvider('errors')]
+    #[Test]
+    public function it_can_be_instantiated_using_the_backed_values(string $error): void
     {
         $instance = ExpoErrorType::from($error);
 
         $this->assertSame($error, $instance->value);
     }
 
-    protected function errors(): array
+    public static function errors(): array
     {
         return [
             ['DeviceNotRegistered'],

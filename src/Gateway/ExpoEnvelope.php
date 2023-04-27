@@ -9,10 +9,8 @@ use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use UnexpectedValueException;
 
-/**
- * @internal
- */
-final class ExpoEnvelope implements Arrayable, Jsonable
+/** @internal */
+final readonly class ExpoEnvelope implements Arrayable, Jsonable
 {
     use Makeable;
 
@@ -21,10 +19,8 @@ final class ExpoEnvelope implements Arrayable, Jsonable
      *
      * @param array<int, ExpoPushToken> $recipients
      */
-    private function __construct(
-        public readonly array $recipients,
-        public readonly ExpoMessage $message,
-    ) {
+    private function __construct(public array $recipients, public ExpoMessage $message)
+    {
         if (! count($recipients)) {
             throw new UnexpectedValueException('There must be at least 1 recipient.');
         }

@@ -10,7 +10,7 @@ use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
 use Stringable;
 use UnexpectedValueException;
 
-final class ExpoPushToken implements Castable, JsonSerializable, Stringable
+final readonly class ExpoPushToken implements Castable, JsonSerializable, Stringable
 {
     use Makeable;
 
@@ -22,7 +22,7 @@ final class ExpoPushToken implements Castable, JsonSerializable, Stringable
     /**
      * The string representation of the push token.
      */
-    private readonly string $value;
+    private string $value;
 
     /**
      * Create a new ExpoPushToken instance.

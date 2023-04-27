@@ -9,14 +9,15 @@ use NotificationChannels\Expo\ExpoServiceProvider;
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
 use Orchestra\Testbench\Concerns\CreatesApplication;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class ServiceBindingsTest extends TestCase
 {
     use CreatesApplication;
 
-    /** @test */
-    public function it_binds_the_expo_guzzle_gateway_to_the_container()
+    #[Test]
+    public function it_binds_the_expo_guzzle_gateway_to_the_container(): void
     {
         $app = $this->createApplication();
         $app->register(ExpoServiceProvider::class);
@@ -27,8 +28,8 @@ final class ServiceBindingsTest extends TestCase
         $this->assertNotSame($gateway, $app->make(ExpoGateway::class));
     }
 
-    /** @test */
-    public function it_throws_if_an_invalid_access_token_is_passed_to_the_gateway()
+    #[Test]
+    public function it_throws_if_an_invalid_access_token_is_passed_to_the_gateway(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The provided access token is not a valid Expo Access Token.');
@@ -41,8 +42,8 @@ final class ServiceBindingsTest extends TestCase
         $app->make(ExpoGateway::class);
     }
 
-    /** @test */
-    public function it_binds_the_expo_channel_as_a_singleton_to_the_container()
+    #[Test]
+    public function it_binds_the_expo_channel_as_a_singleton_to_the_container(): void
     {
         $app = $this->createApplication();
         $app->register(ExpoServiceProvider::class);
@@ -52,8 +53,8 @@ final class ServiceBindingsTest extends TestCase
         $this->assertSame($expo, $app->make(ExpoChannel::class));
     }
 
-    /** @test */
-    public function it_extends_the_channel_manager_with_expo()
+    #[Test]
+    public function it_extends_the_channel_manager_with_expo(): void
     {
         $app = $this->createApplication();
         $app->register(ExpoServiceProvider::class);

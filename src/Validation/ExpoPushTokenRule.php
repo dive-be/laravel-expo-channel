@@ -2,19 +2,20 @@
 
 namespace NotificationChannels\Expo\Validation;
 
+use Closure;
 use Dive\Utils\Makeable;
-use Illuminate\Contracts\Validation\InvokableRule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use NotificationChannels\Expo\ExpoPushToken;
 use UnexpectedValueException;
 
-final class ExpoPushTokenRule implements InvokableRule
+final readonly class ExpoPushTokenRule implements ValidationRule
 {
     use Makeable;
 
     /**
      * Run the rule and determine whether the value is a valid push token.
      */
-    public function __invoke($attribute, $value, $fail): void
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (! is_string($value)) {
             $fail('validation.string')->translate();

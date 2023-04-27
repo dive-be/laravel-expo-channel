@@ -2,10 +2,8 @@
 
 namespace NotificationChannels\Expo\Gateway;
 
-/**
- * @internal
- */
-final class ExpoResponse
+/** @internal */
+final readonly class ExpoResponse
 {
     private const FAILED = 'failed';
     private const FATAL = 'fatal';
@@ -14,10 +12,7 @@ final class ExpoResponse
     /**
      * Create a new ExpoResponse instance.
      */
-    private function __construct(
-        private readonly string $type,
-        private readonly array|string|null $context = null,
-    ) {}
+    private function __construct(private string $type, private array|string|null $context = null) {}
 
     /**
      * Create a "failed" ExpoResponse instance.

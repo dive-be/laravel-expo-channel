@@ -6,7 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 use NotificationChannels\Expo\ExpoPushToken;
 
-final class AsExpoPushToken implements CastsAttributes
+final readonly class AsExpoPushToken implements CastsAttributes
 {
     /**
      * Transform the attribute from the underlying model values to an ExpoPushToken.

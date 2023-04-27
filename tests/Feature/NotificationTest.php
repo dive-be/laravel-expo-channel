@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\Event;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
-use Tests\FeatureTest;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 use Tests\InMemoryExpoGateway;
 
-final class NotificationTest extends FeatureTest
+final class NotificationTest extends TestCase
 {
-    protected function defineWebRoutes($router)
+    protected function defineWebRoutes($router): void
     {
         $router->patch('notification/send', static function (Request $request) {
             $user = new User($request->only('token'));
@@ -27,8 +28,8 @@ final class NotificationTest extends FeatureTest
         });
     }
 
-    /** @test */
-    public function test_user_can_be_notified()
+    #[Test]
+    public function test_user_can_be_notified(): void
     {
         Event::fake(NotificationFailed::class);
 
@@ -37,8 +38,8 @@ final class NotificationTest extends FeatureTest
         Event::assertNotDispatched(NotificationFailed::class);
     }
 
-    /** @test */
-    public function test_listeners_are_invoked_on_failure()
+    #[Test]
+    public function test_listeners_are_invoked_on_failure(): void
     {
         Event::listen(NotificationFailed::class, function ($event) {
             $this->assertSame('expo', $event->channel);
@@ -64,7 +65,7 @@ final class User extends Authenticatable
 
 final class PartnerHasReplied extends Notification
 {
-    public function toExpo($notifiable): ExpoMessage
+    public function toExpo(mixed $notifiable): ExpoMessage
     {
         return ExpoMessage::create('New message', 'I hate you.');
     }

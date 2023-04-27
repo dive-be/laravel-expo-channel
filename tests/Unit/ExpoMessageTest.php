@@ -7,13 +7,14 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Carbon;
 use JsonSerializable;
 use NotificationChannels\Expo\ExpoMessage;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
 final class ExpoMessageTest extends TestCase
 {
-    /** @test */
-    public function it_can_be_constructed_with_a_title_and_a_body()
+    #[Test]
+    public function it_can_be_constructed_with_a_title_and_a_body(): void
     {
         $msg = ExpoMessage::create('John', 'Cena');
 
@@ -23,8 +24,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame('Cena', $body);
     }
 
-    /** @test */
-    public function it_can_set_a_badge()
+    #[Test]
+    public function it_can_set_a_badge(): void
     {
         $msg = ExpoMessage::create()->badge($value = 1337);
 
@@ -33,8 +34,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($value, $badge);
     }
 
-    /** @test */
-    public function it_doesnt_allow_a_badge_below_zero()
+    #[Test]
+    public function it_doesnt_allow_a_badge_below_zero(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The badge must be greater than or equal to 0.');
@@ -42,8 +43,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->badge(-1337);
     }
 
-    /** @test */
-    public function it_can_set_a_body()
+    #[Test]
+    public function it_can_set_a_body(): void
     {
         $msgA = ExpoMessage::create()->body($value = 'Laravel, Framework');
         $msgB = ExpoMessage::create()->text($value);
@@ -55,8 +56,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($value, $bodyB);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_empty_body()
+    #[Test]
+    public function it_doesnt_allow_an_empty_body(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The body must not be empty.');
@@ -64,8 +65,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->body('');
     }
 
-    /** @test */
-    public function it_can_set_a_category_id()
+    #[Test]
+    public function it_can_set_a_category_id(): void
     {
         $msg = ExpoMessage::create()->categoryId($value = 'Laravel');
 
@@ -74,8 +75,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($value, $categoryId);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_empty_category_id()
+    #[Test]
+    public function it_doesnt_allow_an_empty_category_id(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The categoryId must not be empty.');
@@ -83,8 +84,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->categoryId('');
     }
 
-    /** @test */
-    public function it_can_set_a_channel_id()
+    #[Test]
+    public function it_can_set_a_channel_id(): void
     {
         $msg = ExpoMessage::create()->channelId($value = 'Laravel');
 
@@ -93,8 +94,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($value, $channelId);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_empty_channel_id()
+    #[Test]
+    public function it_doesnt_allow_an_empty_channel_id(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The channelId must not be empty.');
@@ -102,8 +103,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->channelId('');
     }
 
-    /** @test */
-    public function it_can_set_the_json_data()
+    #[Test]
+    public function it_can_set_the_json_data(): void
     {
         $msgA = ExpoMessage::create()->data($value = ['laravel' => 'framework']);
         $msgB = ExpoMessage::create()->data(new TestArrayable());
@@ -121,8 +122,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertEquals($data, $dataD);
     }
 
-    /** @test */
-    public function it_can_set_the_priority_to_default()
+    #[Test]
+    public function it_can_set_the_priority_to_default(): void
     {
         $msgA = ExpoMessage::create()->default();
         $msgB = ExpoMessage::create()->priority('default');
@@ -134,8 +135,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($priority, $priorityB);
     }
 
-    /** @test */
-    public function it_can_set_an_expiration()
+    #[Test]
+    public function it_can_set_an_expiration(): void
     {
         $msgA = ExpoMessage::create()->expiresAt($expiration = time() + 60);
         $msgB = ExpoMessage::create()->expiresAt(Carbon::now()->addSeconds(60));
@@ -147,8 +148,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($expiration, $expirationB);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_expiration_in_the_past()
+    #[Test]
+    public function it_doesnt_allow_an_expiration_in_the_past(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The expiration time must be in the future.');
@@ -156,8 +157,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->expiresAt(time() - 60);
     }
 
-    /** @test */
-    public function it_can_set_the_priority_to_high()
+    #[Test]
+    public function it_can_set_the_priority_to_high(): void
     {
         $msgA = ExpoMessage::create()->high();
         $msgB = ExpoMessage::create()->priority('high');
@@ -169,8 +170,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($priority, $priorityB);
     }
 
-    /** @test */
-    public function it_can_set_the_mutable_content()
+    #[Test]
+    public function it_can_set_the_mutable_content(): void
     {
         $msg = ExpoMessage::create()->mutableContent();
 
@@ -179,8 +180,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertTrue($mutableContent);
     }
 
-    /** @test */
-    public function it_can_set_the_priority_to_normal()
+    #[Test]
+    public function it_can_set_the_priority_to_normal(): void
     {
         $msgA = ExpoMessage::create()->normal();
         $msgB = ExpoMessage::create()->priority('normal');
@@ -192,8 +193,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($priority, $priorityB);
     }
 
-    /** @test */
-    public function it_can_play_a_sound()
+    #[Test]
+    public function it_can_play_a_sound(): void
     {
         $msg = ExpoMessage::create()->playSound();
 
@@ -202,8 +203,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame('default', $sound);
     }
 
-    /** @test */
-    public function it_can_set_a_priority()
+    #[Test]
+    public function it_can_set_a_priority(): void
     {
         $msg = ExpoMessage::create()->priority('HIGH');
 
@@ -212,8 +213,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame('high', $priority);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_invalid_priority()
+    #[Test]
+    public function it_doesnt_allow_an_invalid_priority(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The priority must be default, normal or high.');
@@ -221,8 +222,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->priority('extreme');
     }
 
-    /** @test */
-    public function it_can_set_a_subtitle()
+    #[Test]
+    public function it_can_set_a_subtitle(): void
     {
         $msg = ExpoMessage::create()->subtitle($value = "You can't see me");
 
@@ -231,8 +232,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($value, $subtitle);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_empty_subtitle()
+    #[Test]
+    public function it_doesnt_allow_an_empty_subtitle(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The subtitle must not be empty.');
@@ -240,8 +241,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->subtitle('');
     }
 
-    /** @test */
-    public function it_can_set_a_title()
+    #[Test]
+    public function it_can_set_a_title(): void
     {
         $msg = ExpoMessage::create()->title($value = "You can't see me");
 
@@ -250,8 +251,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame($value, $title);
     }
 
-    /** @test */
-    public function it_doesnt_allow_an_empty_title()
+    #[Test]
+    public function it_doesnt_allow_an_empty_title(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The title must not be empty.');
@@ -259,8 +260,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->title('');
     }
 
-    /** @test */
-    public function it_can_set_a_ttl()
+    #[Test]
+    public function it_can_set_a_ttl(): void
     {
         $msgA = ExpoMessage::create()->ttl(60);
         $msgB = ExpoMessage::create()->expiresIn(45);
@@ -272,8 +273,8 @@ final class ExpoMessageTest extends TestCase
         $this->assertSame(45, $ttlB);
     }
 
-    /** @test */
-    public function it_doesnt_allow_zero_or_a_negative_ttl()
+    #[Test]
+    public function it_doesnt_allow_zero_or_a_negative_ttl(): void
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('The TTL must be greater than 0.');
@@ -286,8 +287,8 @@ final class ExpoMessageTest extends TestCase
         ExpoMessage::create()->ttl(-60);
     }
 
-    /** @test */
-    public function it_is_arrayable_and_json_serializable()
+    #[Test]
+    public function it_is_arrayable_and_json_serializable(): void
     {
         $msg = ExpoMessage::create('Exponent', 'Firebase Cloud Messaging')
             ->badge(3)

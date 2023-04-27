@@ -10,6 +10,3 @@ parameters:
     checkMissingIterableValueType: false
 
     checkGenericClassInNonGenericObjectType: false
-
-    ignoreErrors:
-        - '#Property NotificationChannels\\Expo\\ExpoMessage::\$.* is never read, only written\.#'

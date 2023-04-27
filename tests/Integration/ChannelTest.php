@@ -14,6 +14,7 @@ use NotificationChannels\Expo\ExpoChannel;
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Tests\InMemoryExpoGateway;
 
@@ -34,8 +35,8 @@ final class ChannelTest extends TestCase
         $this->channel = new ExpoChannel($this->gateway, $this->events);
     }
 
-    /** @test */
-    public function it_can_send_a_push_notification()
+    #[Test]
+    public function it_can_send_a_push_notification(): void
     {
         $notifiable = new Customer();
         $notification = new FoodWasDelivered();
@@ -48,8 +49,8 @@ final class ChannelTest extends TestCase
         $this->events->assertNotDispatched(NotificationFailed::class);
     }
 
-    /** @test */
-    public function it_throws_if_the_service_responds_with_an_unexpected_error()
+    #[Test]
+    public function it_throws_if_the_service_responds_with_an_unexpected_error(): void
     {
         $this->expectException(CouldNotSendNotification::class);
         $this->expectExceptionMessage('Expo responded with an error: Something went wrong.');
@@ -59,8 +60,8 @@ final class ChannelTest extends TestCase
         $this->channel->send(new Customer(), new FoodWasDelivered());
     }
 
-    /** @test */
-    public function it_dispatches_failed_events_when_something_goes_wrong()
+    #[Test]
+    public function it_dispatches_failed_events_when_something_goes_wrong(): void
     {
         $notifiable = new FraudulentCustomer();
         $notification = new FoodWasDelivered();
@@ -74,8 +75,8 @@ final class ChannelTest extends TestCase
         );
     }
 
-    /** @test */
-    public function it_doesnt_send_any_notifications_if_the_token_is_null()
+    #[Test]
+    public function it_doesnt_send_any_notifications_if_the_token_is_null(): void
     {
         $notifiable = new NullCustomer();
         $notification = new FoodWasDelivered();
@@ -85,8 +86,8 @@ final class ChannelTest extends TestCase
         $this->gateway->assertNothingSent();
     }
 
-    /** @test */
-    public function it_doesnt_send_any_notifications_if_the_token_collection_is_empty()
+    #[Test]
+    public function it_doesnt_send_any_notifications_if_the_token_collection_is_empty(): void
     {
         $notifiable = new EmptyCollectionCustomer();
         $notification = new FoodWasDelivered();
@@ -96,8 +97,8 @@ final class ChannelTest extends TestCase
         $this->gateway->assertNothingSent();
     }
 
-    /** @test */
-    public function it_throws_if_the_notification_doesnt_provide_a_message()
+    #[Test]
+    public function it_throws_if_the_notification_doesnt_provide_a_message(): void
     {
         $this->expectException(CouldNotSendNotification::class);
         $this->expectExceptionMessage('Notification is missing the toExpo method.');
@@ -105,8 +106,8 @@ final class ChannelTest extends TestCase
         $this->channel->send(new Customer(), new CarHasCrashed());
     }
 
-    /** @test */
-    public function it_throws_if_the_notifiable_is_invalid()
+    #[Test]
+    public function it_throws_if_the_notifiable_is_invalid(): void
     {
         $this->expectException(CouldNotSendNotification::class);
         $this->expectExceptionMessage('You must provide an instance of Notifiable.');
@@ -117,7 +118,7 @@ final class ChannelTest extends TestCase
 
 final class FoodWasDelivered extends Notification
 {
-    public function toExpo($notifiable): ExpoMessage
+    public function toExpo(mixed $notifiable): ExpoMessage
     {
         return ExpoMessage::create('Food Delivered')
             ->body('Your food was delivered on time!')
@@ -145,7 +146,7 @@ final class EmptyCollectionCustomer
 
     public function routeNotificationForExpo(): Collection
     {
-        return Collection::make([]);
+        return Collection::make();
     }
 }
 
@@ -163,7 +164,7 @@ final class NullCustomer
 {
     use Notifiable;
 
-    public function routeNotificationForExpo()
+    public function routeNotificationForExpo(): null
     {
         return null;
     }
