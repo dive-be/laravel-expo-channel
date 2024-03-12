@@ -66,7 +66,7 @@ final class InMemoryExpoGateway implements ExpoGateway
         );
     }
 
-    private function record(ExpoEnvelope $envelope)
+    private function record(ExpoEnvelope $envelope): void
     {
         $this->envelope = $envelope;
     }

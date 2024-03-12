@@ -4,9 +4,10 @@ namespace Tests\Integration;
 
 use NotificationChannels\Expo\Gateway\ExpoGateway;
 use NotificationChannels\Expo\Gateway\ExpoGatewayUsingGuzzle;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/** @group network */
+#[Group('network')]
 final class ExpoGatewayUsingGuzzleTest extends TestCase
 {
     use ExpoGatewayContractTests;

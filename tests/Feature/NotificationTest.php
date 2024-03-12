@@ -12,8 +12,8 @@ use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\Attributes\Test;
-use Tests\TestCase;
 use Tests\InMemoryExpoGateway;
+use Tests\TestCase;
 
 final class NotificationTest extends TestCase
 {

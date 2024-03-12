@@ -17,7 +17,7 @@ trait ExpoGatewayContractTests
     {
         $envelope = ExpoEnvelope::make([
             ExpoPushToken::make('ExpoPushToken[Wi54gvIrap4SDW4Dsh6b0h]'),
-            $token = ExpoPushToken::make('ExpoPushToken[zblQYn7ReoYrLoHYsXSe0q]')
+            $token = ExpoPushToken::make('ExpoPushToken[zblQYn7ReoYrLoHYsXSe0q]'),
         ], ExpoMessage::create('John', 'Cena'));
 
         $response = $this->gateway()->sendPushNotifications($envelope);
