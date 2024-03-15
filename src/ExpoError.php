@@ -2,12 +2,8 @@
 
 namespace NotificationChannels\Expo;
 
-use Dive\Utils\Makeable;
-
 final readonly class ExpoError
 {
-    use Makeable;
-
     /**
      * Create an ExpoError instance.
      */
@@ -16,4 +12,12 @@ final readonly class ExpoError
         public ExpoPushToken $token,
         public string $message,
     ) {}
+
+    /**
+     * @see __construct()
+     */
+    public static function make(ExpoErrorType $type, ExpoPushToken $token, string $message): ExpoError
+    {
+        return new self($type, $token, $message);
+    }
 }

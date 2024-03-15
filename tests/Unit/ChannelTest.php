@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Integration;
+namespace Tests\Unit;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Events\Dispatcher;

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use InvalidArgumentException;
 use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
@@ -9,7 +10,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Tests\ExpoTokensDataset;
-use UnexpectedValueException;
 
 final class ExpoPushTokenTest extends TestCase
 {
@@ -28,7 +28,7 @@ final class ExpoPushTokenTest extends TestCase
     #[Test]
     public function it_doesnt_allow_invalid_tokens(string $value): void
     {
-        $this->expectException(UnexpectedValueException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("{$value} is not a valid push token.");
 
         ExpoPushToken::make($value);

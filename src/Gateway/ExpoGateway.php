@@ -2,9 +2,7 @@
 
 namespace NotificationChannels\Expo\Gateway;
 
-/**
- * @internal
- */
+/** @internal */
 interface ExpoGateway
 {
     /**

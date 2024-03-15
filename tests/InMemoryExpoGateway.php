@@ -13,7 +13,7 @@ use PHPUnit\Framework\Assert;
 
 final class InMemoryExpoGateway implements ExpoGateway
 {
-    public const VALID_TOKEN = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]';
+    public const string VALID_TOKEN = 'ExponentPushToken[FtT1dBIc5Wp92HEGuJUhL4]';
 
     private ?ExpoEnvelope $envelope = null;
 

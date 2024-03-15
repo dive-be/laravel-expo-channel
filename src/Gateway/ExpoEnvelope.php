@@ -2,18 +2,15 @@
 
 namespace NotificationChannels\Expo\Gateway;
 
-use Dive\Utils\Makeable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use InvalidArgumentException;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
-use UnexpectedValueException;
 
 /** @internal */
 final readonly class ExpoEnvelope implements Arrayable, Jsonable
 {
-    use Makeable;
-
     /**
      * Create a new ExpoEnvelope instance.
      *
@@ -22,8 +19,16 @@ final readonly class ExpoEnvelope implements Arrayable, Jsonable
     private function __construct(public array $recipients, public ExpoMessage $message)
     {
         if (! count($recipients)) {
-            throw new UnexpectedValueException('There must be at least 1 recipient.');
+            throw new InvalidArgumentException('There must be at least 1 recipient.');
         }
+    }
+
+    /**
+     * @see __construct()
+     */
+    public static function make(array $recipients, ExpoMessage $message): self
+    {
+        return new self($recipients, $message);
     }
 
     /**

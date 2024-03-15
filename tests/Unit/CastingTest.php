@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Integration;
+namespace Tests\Unit;
 
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -8,7 +8,6 @@ use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 final class CastingTest extends TestCase
 {
@@ -50,7 +49,7 @@ final class CastingTest extends TestCase
     #[Test]
     public function it_disallows_invalid_expo_push_tokens(): void
     {
-        $this->expectException(UnexpectedValueException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new User(['expo_token' => 'blablabla']);
     }
@@ -65,14 +64,22 @@ final class CastingTest extends TestCase
     }
 }
 
+/*
+ * @property ExpoPushToken|null $expo_token
+ */
 final class User extends Model
 {
     protected $casts = ['expo_token' => AsExpoPushToken::class];
+
     protected $guarded = [];
 }
 
+/*
+ * @property ExpoPushToken|null $expo_token
+ */
 final class Notifiable extends Model
 {
     protected $casts = ['expo_token' => ExpoPushToken::class];
+
     protected $guarded = [];
 }

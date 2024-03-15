@@ -6,8 +6,8 @@ use DateTimeInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Traits\Conditionable;
+use InvalidArgumentException;
 use JsonSerializable;
-use UnexpectedValueException;
 
 /**
  * Expo Message Request Format.
@@ -21,7 +21,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * The possible delivery priorities of a message.
      */
-    private const PRIORITIES = ['default', 'normal', 'high'];
+    private const array PRIORITIES = ['default', 'normal', 'high'];
 
     /**
      * A JSON object delivered to your app.
@@ -131,14 +131,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the number to display in the badge on the app icon.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$badge
      */
     public function badge(int $value): self
     {
         if ($value < 0) {
-            throw new UnexpectedValueException('The badge must be greater than or equal to 0.');
+            throw new InvalidArgumentException('The badge must be greater than or equal to 0.');
         }
 
         $this->badge = $value;
@@ -149,14 +149,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the message body to display in the notification.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$body
      */
     public function body(string $value): self
     {
         if (empty($value)) {
-            throw new UnexpectedValueException('The body must not be empty.');
+            throw new InvalidArgumentException('The body must not be empty.');
         }
 
         $this->body = $value;
@@ -167,14 +167,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the ID of the notification category that this notification is associated with.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$categoryId
      */
     public function categoryId(string $value): self
     {
         if (empty($value)) {
-            throw new UnexpectedValueException('The categoryId must not be empty.');
+            throw new InvalidArgumentException('The categoryId must not be empty.');
         }
 
         $this->categoryId = $value;
@@ -185,14 +185,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the ID of the Notification Channel through which to display this notification.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$channelId
      */
     public function channelId(string $value): self
     {
         if (empty($value)) {
-            throw new UnexpectedValueException('The channelId must not be empty.');
+            throw new InvalidArgumentException('The channelId must not be empty.');
         }
 
         $this->channelId = $value;
@@ -239,7 +239,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the expiration time of the message.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$expiration
      */
@@ -250,7 +250,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
         }
 
         if ($value - time() <= 0) {
-            throw new UnexpectedValueException('The expiration time must be in the future.');
+            throw new InvalidArgumentException('The expiration time must be in the future.');
         }
 
         $this->expiration = $value;
@@ -317,7 +317,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the delivery priority of the message, either 'default', 'normal' or 'high.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$priority
      */
@@ -326,7 +326,7 @@ final class ExpoMessage implements Arrayable, JsonSerializable
         $value = strtolower($value);
 
         if (! in_array($value, self::PRIORITIES)) {
-            throw new UnexpectedValueException('The priority must be default, normal or high.');
+            throw new InvalidArgumentException('The priority must be default, normal or high.');
         }
 
         $this->priority = $value;
@@ -337,14 +337,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the subtitle to display in the notification below the title.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$subtitle
      */
     public function subtitle(string $value): self
     {
         if (empty($value)) {
-            throw new UnexpectedValueException('The subtitle must not be empty.');
+            throw new InvalidArgumentException('The subtitle must not be empty.');
         }
 
         $this->subtitle = $value;
@@ -363,14 +363,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the title to display in the notification.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$title
      */
     public function title(string $value): self
     {
         if (empty($value)) {
-            throw new UnexpectedValueException('The title must not be empty.');
+            throw new InvalidArgumentException('The title must not be empty.');
         }
 
         $this->title = $value;
@@ -381,14 +381,14 @@ final class ExpoMessage implements Arrayable, JsonSerializable
     /**
      * Set the number of seconds for which the message may be kept around for redelivery.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException()
      *
      * @see ExpoMessage::$ttl
      */
     public function ttl(int $value): self
     {
         if ($value <= 0) {
-            throw new UnexpectedValueException('The TTL must be greater than 0.');
+            throw new InvalidArgumentException('The TTL must be greater than 0.');
         }
 
         $this->ttl = $value;

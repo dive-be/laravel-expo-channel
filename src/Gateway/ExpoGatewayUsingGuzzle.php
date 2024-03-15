@@ -9,6 +9,7 @@ use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoErrorType;
 use NotificationChannels\Expo\ExpoPushToken;
 use Psr\Http\Message\ResponseInterface;
+use SensitiveParameter;
 
 /** @internal */
 final readonly class ExpoGatewayUsingGuzzle implements ExpoGateway
@@ -16,22 +17,22 @@ final readonly class ExpoGatewayUsingGuzzle implements ExpoGateway
     /**
      * Expo's Push API URL.
      */
-    private const BASE_URL = 'https://exp.host/--/api/v2/push/send';
+    private const string BASE_URL = 'https://exp.host/--/api/v2/push/send';
 
     /**
      * OK status code.
      */
-    private const HTTP_OK = 200;
+    private const int HTTP_OK = 200;
 
     /**
      * 1 KiB in bytes.
      */
-    private const KIBIBYTE = 1024;
+    private const int KIBIBYTE = 1024;
 
     /**
      * The threshold (in KiB) determines whether a payload needs to be compressed.
      */
-    private const THRESHOLD = 1;
+    private const int THRESHOLD = 1;
 
     /**
      * The Guzzle HTTP client instance.
@@ -41,7 +42,7 @@ final readonly class ExpoGatewayUsingGuzzle implements ExpoGateway
     /**
      * Create a new ExpoClient instance.
      */
-    public function __construct(?string $accessToken = null)
+    public function __construct(#[SensitiveParameter] ?string $accessToken = null)
     {
         $this->http = new Client([RequestOptions::HEADERS => $this->getDefaultHeaders($accessToken)]);
     }
@@ -94,7 +95,7 @@ final readonly class ExpoGatewayUsingGuzzle implements ExpoGateway
     /**
      * Get the default headers to be used by the HTTP client.
      */
-    private function getDefaultHeaders(?string $accessToken): array
+    private function getDefaultHeaders(#[SensitiveParameter] ?string $accessToken): array
     {
         $headers = [
             'Accept' => 'application/json',
@@ -135,9 +136,10 @@ final readonly class ExpoGatewayUsingGuzzle implements ExpoGateway
      */
     private function getPushTickets(ResponseInterface $response): array
     {
+        /** @var array $body */
         $body = json_decode((string) $response->getBody(), true);
 
-        return Arr::get($body, 'data', []); // @phpstan-ignore-line
+        return Arr::get($body, 'data', []);
     }
 
     /**

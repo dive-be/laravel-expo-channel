@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Integration;
+namespace Tests\Unit;
 
+use InvalidArgumentException;
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
 use NotificationChannels\Expo\Gateway\ExpoEnvelope;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 final class EnvelopeTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class EnvelopeTest extends TestCase
     #[Test]
     public function it_doesnt_allow_creation_if_there_are_no_recipients(): void
     {
-        $this->expectException(UnexpectedValueException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('There must be at least 1 recipient.');
 
         ExpoEnvelope::make([], $this->message());

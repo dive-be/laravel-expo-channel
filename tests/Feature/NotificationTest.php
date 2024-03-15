@@ -50,6 +50,9 @@ final class NotificationTest extends TestCase
     }
 }
 
+/**
+ * @property ExpoPushToken|null $token
+ */
 final class User extends Authenticatable
 {
     use Notifiable;
@@ -57,7 +60,7 @@ final class User extends Authenticatable
     protected $casts = ['token' => ExpoPushToken::class];
     protected $guarded = [];
 
-    public function routeNotificationForExpo(): ExpoPushToken
+    public function routeNotificationForExpo(): ?ExpoPushToken
     {
         return $this->token;
     }

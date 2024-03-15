@@ -2,19 +2,8 @@
 
 namespace NotificationChannels\Expo;
 
-use Dive\Enum\Assertable;
-
-/**
- * @method bool isDeviceNotRegistered()
- * @method bool isMessageTooBig()
- * @method bool isMessageRateExceeded()
- * @method bool isMismatchSenderId()
- * @method bool isInvalidCredentials()
- */
 enum ExpoErrorType: string
 {
-    use Assertable;
-
     /**
      * The device cannot receive push notifications anymore.
      * You should stop sending messages to the corresponding Expo push token.
@@ -51,4 +40,44 @@ enum ExpoErrorType: string
      * Uploading a new APN key will not change your users' Expo Push Tokens.
      */
     case InvalidCredentials = 'InvalidCredentials';
+
+    /**
+     * Assert whether the error type is DeviceNotRegistered.
+     */
+    public function isDeviceNotRegistered(): bool
+    {
+        return $this === self::DeviceNotRegistered;
+    }
+
+    /**
+     * Assert whether the error type is MessageTooBig.
+     */
+    public function isMessageTooBig(): bool
+    {
+        return $this === self::MessageTooBig;
+    }
+
+    /**
+     * Assert whether the error type is MessageRateExceeded.
+     */
+    public function isMessageRateExceeded(): bool
+    {
+        return $this === self::MessageRateExceeded;
+    }
+
+    /**
+     * Assert whether the error type is MismatchSenderId.
+     */
+    public function isMismatchSenderId(): bool
+    {
+        return $this === self::MismatchSenderId;
+    }
+
+    /**
+     * Assert whether the error type is InvalidCredentials.
+     */
+    public function isInvalidCredentials(): bool
+    {
+        return $this === self::InvalidCredentials;
+    }
 }

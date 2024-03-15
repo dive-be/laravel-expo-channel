@@ -2,22 +2,19 @@
 
 namespace NotificationChannels\Expo;
 
-use Dive\Utils\Makeable;
 use Illuminate\Contracts\Database\Eloquent\Castable;
+use InvalidArgumentException;
 use JsonSerializable;
 use NotificationChannels\Expo\Casts\AsExpoPushToken;
 use NotificationChannels\Expo\Validation\ExpoPushTokenRule;
 use Stringable;
-use UnexpectedValueException;
 
 final readonly class ExpoPushToken implements Castable, JsonSerializable, Stringable
 {
-    use Makeable;
-
     /**
      * The minimum acceptable length of a push token.
      */
-    public const MIN_LENGTH = 16;
+    public const int MIN_LENGTH = 16;
 
     /**
      * The string representation of the push token.
@@ -27,20 +24,20 @@ final readonly class ExpoPushToken implements Castable, JsonSerializable, String
     /**
      * Create a new ExpoPushToken instance.
      *
-     * @throws UnexpectedValueException
+     * @throws InvalidArgumentException
      */
     private function __construct(string $value)
     {
         if (mb_strlen($value) < self::MIN_LENGTH) {
-            throw new UnexpectedValueException("{$value} is not a valid push token.");
+            throw new InvalidArgumentException("{$value} is not a valid push token.");
         }
 
         if (! str_starts_with($value, 'ExponentPushToken[') && ! str_starts_with($value, 'ExpoPushToken[')) {
-            throw new UnexpectedValueException("{$value} is not a valid push token.");
+            throw new InvalidArgumentException("{$value} is not a valid push token.");
         }
 
         if (! str_ends_with($value, ']')) {
-            throw new UnexpectedValueException("{$value} is not a valid push token.");
+            throw new InvalidArgumentException("{$value} is not a valid push token.");
         }
 
         $this->value = $value;
@@ -52,6 +49,14 @@ final readonly class ExpoPushToken implements Castable, JsonSerializable, String
     public static function castUsing(array $arguments): string
     {
         return AsExpoPushToken::class;
+    }
+
+    /**
+     * @see __construct()
+     */
+    public static function make(string $token): self
+    {
+        return new self($token);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Integration;
+namespace Tests\Unit;
 
 use NotificationChannels\Expo\ExpoError;
 use NotificationChannels\Expo\ExpoErrorType;

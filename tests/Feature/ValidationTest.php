@@ -7,7 +7,7 @@ use NotificationChannels\Expo\ExpoPushToken;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-final class ValidationTestCase extends TestCase
+final class ValidationTest extends TestCase
 {
     protected function defineWebRoutes($router): void
     {

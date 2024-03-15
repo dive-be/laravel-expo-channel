@@ -2,12 +2,14 @@
 
 namespace NotificationChannels\Expo\Gateway;
 
+use NotificationChannels\Expo\ExpoError;
+
 /** @internal */
 final readonly class ExpoResponse
 {
-    private const FAILED = 'failed';
-    private const FATAL = 'fatal';
-    private const OK = 'ok';
+    private const string FAILED = 'failed';
+    private const string FATAL = 'fatal';
+    private const string OK = 'ok';
 
     /**
      * Create a new ExpoResponse instance.
@@ -17,7 +19,7 @@ final readonly class ExpoResponse
     /**
      * Create a "failed" ExpoResponse instance.
      *
-     * @param $errors array<int, \NotificationChannels\Expo\ExpoError>
+     * @param $errors array<int, ExpoError>
      */
     public static function failed(array $errors): self
     {

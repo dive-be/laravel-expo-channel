@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Integration;
+namespace Tests\Unit;
 
 use NotificationChannels\Expo\ExpoMessage;
 use NotificationChannels\Expo\ExpoPushToken;
@@ -25,7 +25,7 @@ final class InMemoryExpoGatewayTest extends TestCase
             ExpoPushToken::make(InMemoryExpoGateway::VALID_TOKEN),
         ], ExpoMessage::create('John', 'Cena'));
 
-        $response = $this->gateway()->sendPushNotifications($envelope);
+        $response = $this->getInstance()->sendPushNotifications($envelope);
 
         $this->assertTrue($response->isOk());
     }
@@ -38,13 +38,13 @@ final class InMemoryExpoGatewayTest extends TestCase
             ExpoPushToken::make('ExpoPushToken[Wi54gvIrap4SDW4Dsh6b0h]'),
         ], ExpoMessage::create('John', 'Cena'));
 
-        $response = $this->gateway()->sendPushNotifications($envelope);
+        $response = $this->getInstance()->sendPushNotifications($envelope);
 
         $this->assertTrue($response->isFailure());
         $this->assertCount(1, $response->errors());
     }
 
-    protected function gateway(): ExpoGateway
+    protected function getInstance(): ExpoGateway
     {
         return new InMemoryExpoGateway();
     }

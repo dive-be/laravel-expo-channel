@@ -3,14 +3,19 @@
 namespace NotificationChannels\Expo\Validation;
 
 use Closure;
-use Dive\Utils\Makeable;
 use Illuminate\Contracts\Validation\ValidationRule;
+use InvalidArgumentException;
 use NotificationChannels\Expo\ExpoPushToken;
-use UnexpectedValueException;
 
 final readonly class ExpoPushTokenRule implements ValidationRule
 {
-    use Makeable;
+    /**
+     * Create a new ExpoPushTokenRule instance.
+     */
+    public static function make(): self
+    {
+        return new self();
+    }
 
     /**
      * Run the rule and determine whether the value is a valid push token.
@@ -25,7 +30,7 @@ final readonly class ExpoPushTokenRule implements ValidationRule
 
         try {
             ExpoPushToken::make($value);
-        } catch (UnexpectedValueException) {
+        } catch (InvalidArgumentException) {
             $fail('validation.regex')->translate();
         }
     }

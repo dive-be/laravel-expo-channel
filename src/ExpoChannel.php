@@ -16,7 +16,7 @@ final readonly class ExpoChannel
     /**
      * The channel's name.
      */
-    public const NAME = 'expo';
+    public const string NAME = 'expo';
 
     /**
      * Create a new channel instance.
