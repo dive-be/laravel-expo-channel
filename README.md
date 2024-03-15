@@ -183,7 +183,7 @@ Unfortunately, Laravel does not provide an [OOB solution](https://github.com/lar
 You can register an event listener that listens to this event and handles the appropriate errors. An example:
 
 ```php
-final class HandleFailedExpoNotifications
+final readonly class HandleFailedExpoNotifications
 {
     public function handle(NotificationFailed $event)
     {
@@ -205,12 +205,12 @@ final class HandleFailedExpoNotifications
 The `NotificationFailed::$data` property will contain an instance of `ExpoError` which has the following properties:
 
 ```php
-final class ExpoError
+final readonly class ExpoError
 {
     private function __construct(
-        public readonly ExpoErrorType $type,
-        public readonly ExpoPushToken $token,
-        public readonly string $message,
+        public ExpoErrorType $type,
+        public ExpoPushToken $token,
+        public string $message,
     ) {}
 }
 ```
