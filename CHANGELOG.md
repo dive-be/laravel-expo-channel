@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-expo-channel` will be documented in this file.
 
+## 2.0.0 - 2024-03-15
+
+- Prepared for LCN migration
+
 ## 1.3.0 - 2024-03-12
 
 ### Added
