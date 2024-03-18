@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This channel has finally moved to [where it belongs (Laravel Notification Channels project)](https://github.com/laravel-notification-channels/expo), and thus this repository has been abandoned. Please use the official channel from now on.
+
 <p align="center"><img src="https://github.com/dive-be/laravel-expo-channel/blob/master/art/socialcard.png?raw=true" alt="Social Card of Laravel Expo Channel"></p>
 
 # Expo Notifications Channel
